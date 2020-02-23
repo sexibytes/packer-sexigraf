@@ -7,7 +7,7 @@
       "boot_command": [
         "<esc><wait>",
         "install <wait>",
-        "preseed/url=http://vmwa.re/admin/preseed.cfg <wait>",
+        "preseed/url=https://raw.githubusercontent.com/sexibytes/packer-sexigraf/master/preseed.cfg <wait>",
         "locale=en_US <wait>",
         "keyboard-configuration/xkb-keymap=us <wait>",
         "netcfg/get_hostname=sexigraf <wait>",
