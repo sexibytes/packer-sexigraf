@@ -31,13 +31,14 @@ cd /root/cpan-packages/libwww-perl-5.837; perl Makefile.PL; make; make install
 sed -i 's/ubuntu/debian/g' /root/vmware-vsphere-cli-distrib/vmware-install.pl
 yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 
-# /bin/cp -rf /tmp/sexigraf-dev6/etc/* /etc/
-# /bin/cp -rf /tmp/sexigraf-dev6/usr/* /usr/
-# /bin/cp -rf /tmp/sexigraf-dev6/var/* /var/
+/bin/cp -rf /tmp/sexigraf-dev6/etc/* /etc/
+/bin/cp -rf /tmp/sexigraf-dev6/usr/* /usr/
+/bin/cp -rf /tmp/sexigraf-dev6/var/* /var/
+/bin/cp -rf /tmp/sexigraf-dev6/var/* /opt/
 
 # echo "Switching Grafana logo to SexiGraf one"
-# mv /usr/share/grafana/public/img/grafana_icon.svg /usr/share/grafana/public/img/grafana_icon_orig.svg
-# ln -s /usr/share/grafana/public/img/sexigraf.svg /usr/share/grafana/public/img/grafana_icon.svg
+mv /usr/share/grafana/public/img/grafana_icon.svg /usr/share/grafana/public/img/grafana_icon_orig.svg
+ln -s /usr/share/grafana/public/img/sexigraf.svg /usr/share/grafana/public/img/grafana_icon.svg
 
 echo "Intialise empty credentials store"
 mkdir -p /var/www/.vmware/credstore
@@ -52,30 +53,19 @@ chown -R www-data. /var/www/
 # activation du site web
 # a2dissite 000-default.conf
 # a2ensite graphite
-# a2enmod proxy
-# a2enmod proxy_http
-# a2enmod ssl
+a2enmod proxy
+a2enmod proxy_http
+a2enmod ssl
 
 chmod a+x /root/PullGuestInfo.sh
 chmod a+x /root/ViPullStatistics.pl
 chmod a+x /root/VsanPullStatistics.pl
 chmod a+x /root/getInventory.pl
 chmod a+x /root/seximenu/seximenu.sh
-
-# Intialise Django db
-#python /usr/lib/python2.7/dist-packages/graphite/manage.py syncdb --noinput
-#chmod 777 /var/lib/graphite/graphite.db
+mkdir -p /var/log/sexigraf
 
 # Configure crontab for vmtools infos
 echo "\n@reboot         root    /bin/bash /root/PullGuestInfo.sh" >> /etc/crontab
-
-# Fix https://bugzilla.mozilla.org/show_bug.cgi?id=834848
-# echo > /etc/carbon/storage-aggregation.conf
-
-# update root password
-echo "root:Sex!Gr@f" | chpasswd
-
-mkdir -p /var/log/sexigraf
 
 echo "Removing unused files"
 rm -f /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz
