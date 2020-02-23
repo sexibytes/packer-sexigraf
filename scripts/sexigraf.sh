@@ -36,7 +36,7 @@ yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 /bin/cp -rf /tmp/sexigraf-dev6/var/* /var/
 /bin/cp -rf /tmp/sexigraf-dev6/var/* /opt/
 
-# echo "Switching Grafana logo to SexiGraf one"
+echo "Switching Grafana logo to SexiGraf one"
 mv /usr/share/grafana/public/img/grafana_icon.svg /usr/share/grafana/public/img/grafana_icon_orig.svg
 ln -s /usr/share/grafana/public/img/sexigraf.svg /usr/share/grafana/public/img/grafana_icon.svg
 
@@ -50,9 +50,8 @@ cat >/var/www/.vmware/credstore/vicredentials.xml <<EOL
 EOL
 chown -R www-data. /var/www/
 
-# activation du site web
-# a2dissite 000-default.conf
-# a2ensite graphite
+chown chown root:grafana /etc/grafana/provisioning/dashboards/*.yaml
+
 a2enmod proxy
 a2enmod proxy_http
 a2enmod ssl
