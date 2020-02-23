@@ -34,7 +34,7 @@ yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 /bin/cp -rf /tmp/sexigraf-dev6/etc/* /etc/
 /bin/cp -rf /tmp/sexigraf-dev6/usr/* /usr/
 /bin/cp -rf /tmp/sexigraf-dev6/var/* /var/
-/bin/cp -rf /tmp/sexigraf-dev6/var/* /opt/
+/bin/cp -rf /tmp/sexigraf-dev6/opt/* /opt/
 
 echo "Switching Grafana logo to SexiGraf one"
 mv /usr/share/grafana/public/img/grafana_icon.svg /usr/share/grafana/public/img/grafana_icon_orig.svg
@@ -51,6 +51,9 @@ EOL
 chown -R www-data. /var/www/
 
 chown chown root:grafana /etc/grafana/provisioning/dashboards/*.yaml
+
+# https://github.com/grafana/grafana/issues/15647
+sed -i 's/;disable_sanitize_html = false/disable_sanitize_html = true/g' /etc/grafana/grafana.ini
 
 a2enmod proxy
 a2enmod proxy_http
