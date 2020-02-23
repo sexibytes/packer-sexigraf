@@ -1,0 +1,8 @@
+output-vmware-iso
+packer_cache
+*.ova
+*.ovf
+*.mf
+*.vmdk
+*.ps1
+.DS_Store

@@ -1,0 +1,58 @@
+{
+
+  "builders": [
+    {
+      "type": "vsphere-iso",
+
+      "boot_command": [
+        "<esc><wait>",
+        "install <wait>",
+        "preseed/url=http://vmwa.re/admin/preseed.cfg <wait>",
+        "locale=en_US <wait>",
+        "keyboard-configuration/xkb-keymap=us <wait>",
+        "netcfg/get_hostname=sexigraf <wait>",
+        "netcfg/get_domain=sexibyt.es <wait>",
+        "<enter><wait>"
+      ],
+
+      "vcenter_server": "{{user `esx_server`}}",
+      "username": "root",
+      "password": "{{user `esx_root_pwd`}}",
+      "insecure_connection": true,
+      "vm_name": "sexigraf",
+      "host": "{{user `esx_server`}}",
+      "datastore": "{{user `datastore`}}",
+      "network": "{{user `portgroup`}}",
+      "network_card": "vmxnet3",
+      "CPUs": 1,
+      "RAM": 8192,
+      "disk_size": 16000,
+      "guest_os_type": "{{user `guestid`}}",
+      "iso_paths": "{{user `iso_path`}}",
+      "ssh_username": "packer",
+      "ssh_password": "packer",
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+      "shutdown_timeout": "5m"
+    }
+  ],
+
+  "provisioners": [
+    {
+        "type": "shell",
+        "execute_command": "echo 'packer' | sudo -S sh '{{.Path}}'",
+        "override": {
+            "vsphere-iso": {
+                "scripts": [
+                    "scripts/base.sh",
+                    "scripts/graphite.sh",
+                    "scripts/grafana.sh",
+                    "scripts/perlsdk.sh",
+                    "scripts/sexigraf-gitsources.sh",
+                    "scripts/sexigraf.sh",
+                    "scripts/seximenu.sh"
+                ]
+            }
+        }
+    }
+  ]
+}
