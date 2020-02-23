@@ -49,8 +49,7 @@
                     "scripts/grafana.sh",
                     "scripts/perlsdk.sh",
                     "scripts/sexigraf-gitsources.sh",
-                    "scripts/sexigraf.sh",
-                    "scripts/seximenu.sh"
+                    "scripts/sexigraf.sh"
                 ]
             }
         }
