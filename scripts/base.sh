@@ -18,8 +18,7 @@ GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
 GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 GRUB_CMDLINE_LINUX="debian-installer=en_US ipv6.disable=1 vmwgfx.enable_fbdev=1"
-# https://communities.vmware.com/thread/514376
-# https://www.itzgeek.com/how-tos/linux/debian/change-default-network-name-ens33-to-old-eth0-on-debian-9.html
 EOF
 
 update-grub
+# https://communities.vmware.com/thread/514376
