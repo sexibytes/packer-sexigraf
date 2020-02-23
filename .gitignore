@@ -1,6 +1,7 @@
 output-vmware-iso
 packer_cache
 packer
+packerlog.txt
 *.ova
 *.ovf
 *.mf
