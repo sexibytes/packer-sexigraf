@@ -28,6 +28,7 @@
       "CPUs": 2,
       "RAM": 8192,
       "disk_size": 16000,
+      "disk_thin_provisioned": true,
       "guest_os_type": "{{user `guestid`}}",
       "iso_paths": "{{user `iso_path`}}",
       "ssh_username": "packer",
