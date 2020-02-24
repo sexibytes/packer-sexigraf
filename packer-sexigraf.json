@@ -48,8 +48,7 @@
                     "scripts/graphite.sh",
                     "scripts/grafana.sh",
                     "scripts/perlsdk.sh",
-                    "scripts/sexigraf-gitsources.sh",
-                    "scripts/sexigraf.sh"
+                    "scripts/sexigraf-gitsources.sh"
                 ]
             }
         }
