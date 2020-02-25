@@ -9,16 +9,16 @@ echo 'UseDNS no' >> /etc/ssh/sshd_config
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # Remove 5s grub timeout to speed up booting
-cat <<EOF > /etc/default/grub
-# If you change this file, run 'update-grub' afterwards to update
-# /boot/grub/grub.cfg.
+# cat <<EOF > /etc/default/grub
+# # If you change this file, run 'update-grub' afterwards to update
+# # /boot/grub/grub.cfg.
 
-GRUB_DEFAULT=0
-GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
-GRUB_CMDLINE_LINUX_DEFAULT="quiet"
-GRUB_CMDLINE_LINUX="debian-installer=en_US ipv6.disable=1 vmwgfx.enable_fbdev=1"
-EOF
+# GRUB_DEFAULT=0
+# GRUB_TIMEOUT=5
+# GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+# GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+# GRUB_CMDLINE_LINUX="debian-installer=en_US vmwgfx.enable_fbdev=1"
+# EOF
 
-update-grub
+# update-grub
 # https://communities.vmware.com/thread/514376
