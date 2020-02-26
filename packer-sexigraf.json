@@ -64,7 +64,8 @@
                     "scripts/base.sh",
                     "scripts/graphite.sh",
                     "scripts/grafana.sh",
-                    "scripts/sexigraf.sh"
+                    "scripts/sexigraf.sh",
+                    "scripts/cleanup.sh"
                 ]
             }
         }
