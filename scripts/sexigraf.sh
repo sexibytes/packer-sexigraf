@@ -65,7 +65,8 @@ chmod a+x /root/PullGuestInfo.sh
 chmod a+x /root/ViPullStatistics.pl
 chmod a+x /root/VsanPullStatistics.pl
 chmod a+x /root/getInventory.pl
-chmod a+x /root/seximenu/seximenu.sh
+# chmod a+x /root/seximenu/seximenu.sh
+chmod a+x /root/genisoimage
 mkdir -p /var/log/sexigraf
 
 # Configure crontab for vmtools infos

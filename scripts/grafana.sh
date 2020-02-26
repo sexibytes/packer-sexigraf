@@ -3,8 +3,8 @@
 DEBIAN_FRONTEND=noninteractive apt-get install -y adduser libfontconfig1 sqlite3
 #
 cd /root
-wget https://dl.grafana.com/oss/release/grafana_6.6.1_amd64.deb
-DEBIAN_FRONTEND=noninteractive dpkg -i grafana_6.6.1_amd64.deb
+wget https://dl.grafana.com/oss/release/grafana_6.6.1_amd64.deb /tmp/grafana.deb
+DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/grafana.deb
 # 
 systemctl daemon-reload
 systemctl enable grafana-server.service

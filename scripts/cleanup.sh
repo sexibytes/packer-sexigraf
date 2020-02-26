@@ -5,10 +5,10 @@
 #apt-get purge $(aptitude search '~i!~M!~prequired!~pimportant!~R~prequired!~R~R~prequired!~R~pimportant!~R~R~pimportant!busybox!grub!initramfs-tools!aptitude!open-vm-tools!openssh-server!dmsetup!libffi6!sudo' | awk '{print $2}')
 #apt-get purge aptitude
 
-DEBIAN_FRONTEND=noninteractive apt-get -y purge acpi acpi-support-base acpid bzip2 console-setup console-setup-linux discover gcc man-db manpages nano libglib2.0-data installation-report keyboard-configuration laptop-detect linux-image-amd64 locales lvm2 pciutils rsync ssl-cert task-english
+# DEBIAN_FRONTEND=noninteractive apt-get -y purge acpi acpi-support-base acpid bzip2 console-setup console-setup-linux discover gcc man-db manpages nano libglib2.0-data installation-report keyboard-configuration laptop-detect linux-image-amd64 locales lvm2 pciutils rsync ssl-cert task-english
 
-DEBIAN_FRONTEND=noninteractive apt-get -y autoremove --purge
-DEBIAN_FRONTEND=noninteractive apt-get -y clean
+# DEBIAN_FRONTEND=noninteractive apt-get -y autoremove --purge
+# DEBIAN_FRONTEND=noninteractive apt-get -y clean
 
 # Removing leftover leases and persistent rules
 echo "cleaning up dhcp leases"
@@ -24,8 +24,12 @@ rm -rf /dev/.udev/
 echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
 echo "pre-up sleep 2" >> /etc/network/interfaces
 
+# remove packer user
+deluser packer
+
 # Remove unwanted files
-rm -f /home/packer/linux.iso
+rm -f /home/packer
+
 # purge locale
 find /usr/share/locale/* -maxdepth 0 -name 'en_US' -prune -o -exec rm -rf '{}' ';'
 
@@ -38,15 +42,15 @@ rm -rf /usr/share/doc/*
 
 # Clean up log files
 find /var/log -type f | while read f; do echo -ne '' > $f; done;
+find /opt/graphite/storage/log -type f | while read f; do echo -ne '' > $f; done;
 
 # Clean apt files
 rm -rf /var/lib/apt/lists/*
 
 # Remove temp files before compacting
 rm -rf /tmp/*
-
-# remove packer user
-deluser packer
+rm -rf /usr/local/src/*
+rm -rf /opt/graphite/storage/whisper/*
 
 
 ###########################
