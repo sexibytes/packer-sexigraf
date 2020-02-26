@@ -49,6 +49,10 @@ chmod 755 /etc/cron.hourly/graphite-build-index
 sudo -u www-data /opt/graphite/bin/build-index.sh
 # 
 cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
+sed -i -e "s/ENABLE_UDP_LISTENER = False/ENABLE_UDP_LISTENER = True/g" /opt/graphite/conf/carbon.conf
+sed -i -e "s/MAX_UPDATES_PER_SECOND = 500/MAX_UPDATES_PER_SECOND = inf/g" /opt/graphite/conf/carbon.conf
+sed -i -e "s/MAX_CREATES_PER_MINUTE = 50/MAX_CREATES_PER_MINUTE = inf/g" /opt/graphite/conf/carbon.conf
+sed -i -e "s/# GRAPHITE_URL = http\:\/\/127\.0\.0\.1\:80/GRAPHITE_URL = http\:\/\/127\.0\.0\.1\:8080/g" /opt/graphite/conf/carbon.conf
 cp /opt/graphite/conf/graphTemplates.conf.example /opt/graphite/conf/graphTemplates.conf
 cp /opt/graphite/conf/storage-aggregation.conf.example /opt/graphite/conf/storage-aggregation.conf
 cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf
