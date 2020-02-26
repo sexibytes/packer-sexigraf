@@ -1,7 +1,8 @@
 # Grafana
 #
 DEBIAN_FRONTEND=noninteractive apt-get install -y adduser libfontconfig1 sqlite3
-# 
+#
+cd /root
 wget https://dl.grafana.com/oss/release/grafana_6.6.1_amd64.deb
 DEBIAN_FRONTEND=noninteractive dpkg -i grafana_6.6.1_amd64.deb
 # 

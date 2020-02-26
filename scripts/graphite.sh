@@ -2,7 +2,7 @@
 # https://github.com/graphite-project/graphite-web/issues/2351#issuecomment-420013046
 # https://github.com/obfuscurity/synthesize
 # 
-DEBIAN_FRONTEND=noninteractive apt-get install -y libcairo2-dev libffi-dev pkg-config python-dev python-pip fontconfig apache2 libapache2-mod-wsgi-py3 git-core collectd gcc g++ make libtool automake python3-dev python3-pip apache2-bin apache2-data apache2-utils php7.3-cli php7.3-common php7.3-json php7.3-readline php7.3-fpm libapache2-mod-php7.3 php7.3-curl
+DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config fontconfig apache2 libapache2-mod-wsgi-py3 git-core collectd gcc g++ make libtool automake python3-dev python3-pip apache2-bin apache2-data apache2-utils php-cli php-common php-json php-readline php-fpm libapache2-mod-php php-curl
 #
 cd /usr/local/src
 echo "git clone graphite"
@@ -11,6 +11,8 @@ git clone https://github.com/graphite-project/carbon.git
 git clone https://github.com/graphite-project/whisper.git
 #
 echo "install graphite & co"
+pip3 install pip --upgrade
+pip3 install setuptools --upgrade
 cd whisper; python3 setup.py install
 cd ../carbon; pip3 install -r requirements.txt; python3 setup.py install
 cd ../graphite-web; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
@@ -26,6 +28,7 @@ mkdir /etc/apache2/run
 # 
 a2dissite 000-default
 a2ensite graphite
+service apache2 reload
 #
 PYTHONPATH=/opt/graphite/webapp django-admin.py migrate --settings=graphite.settings # --run-syncdb
 PYTHONPATH=/opt/graphite/webapp django-admin.py collectstatic --noinput --settings=graphite.settings

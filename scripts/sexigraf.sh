@@ -1,42 +1,36 @@
+# retrieve and unzip source
+echo "Retrieving SexiGraf sources"
+#
+wget -q --no-proxy https://github.com/sexibytes/sexigraf/archive/dev6.zip -O /tmp/sexigraf-src.zip
+unzip /tmp/sexigraf-src.zip -d /tmp/
+
 # Create empty folder for logs
 mkdir /var/log/sexigraf/
-
-# install Graphite requisites (forcing unattend as graphite-carbon request default interactive) and others stuff in unstable branch to get version 1.0+
-# echo "deb http://http.us.debian.org/debian sid main contrib non-free" >> /etc/apt/sources.list
+#
 apt-get update -y
 # DEBIAN_FRONTEND=noninteractive apt-get -y -t unstable --no-install-recommends install graphite-carbon graphite-web collectd
-DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumber-bytes-human-perl xml-twig-tools libsnmp30 cpanminus genisoimage collectd
+DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumber-bytes-human-perl xml-twig-tools libsnmp30 cpanminus genisoimage collectd lib32z1 lib32ncurses5 build-essential uuid uuid-dev libssl-dev perl-doc libxml-libxml-perl libcrypt-ssleay-perl libsoap-lite-perl libmodule-build-perl libxml2 cpanminus
+
+# https://code.vmware.com/docs/6530/vsphere-sdk-for-perl-installation-guide/doc/GUID-16A5A35D-1E05-4DD4-8E02-BEA6BF24A77B.html
+# https://vdc-repo.vmware.com/vmwb-repository/dcr-public/f280c443-0cda-4fed-8e15-7dc07e2b7037/66ce9472-ffd3-4e80-83b4-1bcfeec2099e/doc/GUID-8B0E6E94-A215-4904-935D-1B164C3941A8.html#GUID-8B0E6E94-A215-4904-935D-1B164C3941A8
+# https://vdc-download.vmware.com/vmwb-repository/dcr-public/ae41a1d3-b1ac-4f7c-a1d4-4774ddd05e99/2d5ae4b7-d040-4de1-824d-eb339b09cf6e/vsphere-perl-sdk-67-release-notes.html#supported
 
 /bin/cp -rf /tmp/sexigraf-dev6/root/* /root/
 tar -zxf /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz -C /root/
 
-# cpanm ExtUtils::MakeMaker@6.96
-# cpanm Net::FTP@2.77
-# cpanm UUID::Random@0.04
-cpanm UUID
-# cpanm Net::Graphite@0.16
-# cpanm Module::Build@0.4205 --force
-# cpanm Text::Template@1.47
-
-cpanm LWP
-cpanm Text::Template
-cpanm Module::Build
+cpanm ExtUtils::MakeMaker@6.96
+cpanm Net::FTP@2.77
+cpanm Module::Build@0.4205
+#
 cpanm Net::Graphite
-cpanm UUID::Random
-cpanm ExtUtils::MakeMaker
+cpanm Log::Log4perl
+cpanm JSON
 
-# cd /root/cpan-packages/
-# for i in /root/cpan-packages/*.tar.gz; do tar -xvzf $i; done
+# sed -i 's/ubuntu/debian/g' /root/vmware-vsphere-cli-distrib/vmware-install.pl
+# sed -i 's/# $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = "Net::SSL";/$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = "Net::SSL";/g' /root/vmware-vsphere-cli-distrib/lib/VMware/share/VMware/VICommon.pm
 
-# # Theses packages are not available through deb files, compilation is required
-# cd /root/cpan-packages/libwww-perl-5.837; perl Makefile.PL; make; make install
+wget -q --no-proxy https://raw.githubusercontent.com/sexibytes/sexigraf/dev6/root/vmware-uninstall-vSphere-CLI.pl -O /root/vmware-vsphere-cli-distrib/bin/vmware-uninstall-vSphere-CLI.pl
 
-# Remove uneccessary packages used for compliation
-# apt-get -y purge gcc-4.9-base:i386
-# dpkg --remove-architecture i386
-
-sed -i 's/ubuntu/debian/g' /root/vmware-vsphere-cli-distrib/vmware-install.pl
-sed -i 's/# $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = "Net::SSL";/$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = "Net::SSL";/g' /root/vmware-vsphere-cli-distrib/lib/VMware/share/VMware/VICommon.pm
 yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 
 /bin/cp -rf /tmp/sexigraf-dev6/etc/* /etc/
@@ -80,7 +74,4 @@ echo "\n@reboot         root    /bin/bash /root/PullGuestInfo.sh" >> /etc/cronta
 echo "Removing unused files"
 rm -f /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz
 rm -rf /root/vmware-vsphere-cli-distrib/
-# rm -rf /root/cpan-packages/
-# rm -f /root/sexiauditor.patch
-# rm -f /root/VICommon.pm
 echo "SexiDone"
