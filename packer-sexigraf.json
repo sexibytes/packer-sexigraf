@@ -5,13 +5,29 @@
       "type": "vsphere-iso",
 
       "boot_command": [
-        "<esc><wait>",
-        "install <wait>",
-        "preseed/url=https://raw.githubusercontent.com/sexibytes/packer-sexigraf/master/preseed.cfg <wait>",
-        "locale=en_US <wait>",
-        "keyboard-configuration/xkb-keymap=us <wait>",
-        "netcfg/get_hostname=sexigraf <wait>",
-        "netcfg/get_domain=sexibyt.es <wait>",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "/install/vmlinuz<wait>",
+        " auto<wait>",
+        " console-setup/ask_detect=false<wait>",
+        " console-setup/layoutcode=us<wait>",
+        " console-setup/modelcode=pc105<wait>",
+        " debconf/frontend=noninteractive<wait>",
+        " debian-installer=en_US.UTF-8<wait>",
+        " fb=false<wait>",
+        " initrd=/install/initrd.gz<wait>",
+        " kbd-chooser/method=us<wait>",
+        " keyboard-configuration/layout=USA<wait>",
+        " keyboard-configuration/variant=USA<wait>",
+        " locale=en_US.UTF-8<wait>",
+        " netcfg/get_domain=sexibyt.es<wait>",
+        " netcfg/get_hostname=sexigraf<wait>",
+        " grub-installer/bootdev=/dev/sda<wait>",
+        " noapic<wait>",
+        " preseed/url=https://raw.githubusercontent.com/sexibytes/packer-sexigraf/master/preseed.cfg<wait>",
+        " -- <wait>",
         "<enter><wait>"
       ],
 
@@ -48,8 +64,6 @@
                     "scripts/base.sh",
                     "scripts/graphite.sh",
                     "scripts/grafana.sh",
-                    "scripts/perlsdk.sh",
-                    "scripts/sexigraf-gitsources.sh",
                     "scripts/sexigraf.sh"
                 ]
             }
