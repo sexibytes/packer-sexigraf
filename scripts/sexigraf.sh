@@ -44,18 +44,32 @@ ln -s /usr/share/grafana/public/img/sexigraf.svg /usr/share/grafana/public/img/g
 
 echo "Intialise empty credentials store"
 mkdir -p /var/www/.vmware/credstore
+
 cat >/var/www/.vmware/credstore/vicredentials.xml <<EOL
 <?xml version="1.0" encoding="UTF-8"?>
 <viCredentials>
   <version>1.1</version>
 </viCredentials>
 EOL
+
 chown -R www-data. /var/www/
 
 chown root:grafana /etc/grafana/provisioning/dashboards/*.yaml
 
 # https://github.com/grafana/grafana/issues/15647
 sed -i 's/;disable_sanitize_html = false/disable_sanitize_html = true/g' /etc/grafana/grafana.ini
+
+mkdir -p /etc/apache2/ssl
+
+openssl req \
+    -new \
+    -newkey rsa:4096 \
+    -days 3650 \
+    -nodes \
+    -x509 \
+    -subj "/C=FR/ST=IDF/L=Paris/O=SexiBytes/CN=sexigraf.sexibyt.es" \
+    -keyout /etc/apache2/ssl/sexigraf.key \
+    -out /etc/apache2/ssl/sexigraf.crt
 
 a2enmod proxy
 a2enmod proxy_http
