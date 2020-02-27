@@ -53,14 +53,8 @@ rm -rf /usr/local/src/*
 rm -rf /opt/graphite/storage/whisper/*
 
 
-###########################
-# TODO
 # Purge possible proxy info
 rm -rf /etc/apt/apt.conf
-###########################
-
-
-
 
 cat /dev/zero >zero.fill; sleep 1; sync; sleep 1; /bin/rm -f zero.fill
 # cat /dev/null > ~/.bash_history && history -c && exit
