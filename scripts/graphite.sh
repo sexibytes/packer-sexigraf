@@ -28,7 +28,8 @@ mkdir /etc/apache2/run
 # 
 a2dissite 000-default
 a2ensite graphite
-service apache2 reload
+a2enmod headers
+service apache2 restart
 #
 PYTHONPATH=/opt/graphite/webapp django-admin.py migrate --settings=graphite.settings # --run-syncdb
 PYTHONPATH=/opt/graphite/webapp django-admin.py collectstatic --noinput --settings=graphite.settings

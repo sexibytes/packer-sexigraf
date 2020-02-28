@@ -59,17 +59,17 @@ chown root:grafana /etc/grafana/provisioning/dashboards/*.yaml
 # https://github.com/grafana/grafana/issues/15647
 sed -i 's/;disable_sanitize_html = false/disable_sanitize_html = true/g' /etc/grafana/grafana.ini
 
-mkdir -p /etc/apache2/ssl
+# mkdir -p /etc/apache2/ssl
 
-openssl req \
-    -new \
-    -newkey rsa:4096 \
-    -days 3650 \
-    -nodes \
-    -x509 \
-    -subj "/C=FR/ST=IDF/L=Paris/O=SexiBytes/CN=sexigraf.sexibyt.es" \
-    -keyout /etc/apache2/ssl/sexigraf.key \
-    -out /etc/apache2/ssl/sexigraf.crt
+# openssl req \
+#     -new \
+#     -newkey rsa:4096 \
+#     -days 3650 \
+#     -nodes \
+#     -x509 \
+#     -subj "/C=FR/ST=IDF/L=Paris/O=SexiBytes/CN=sexigraf.sexibyt.es" \
+#     -keyout /etc/apache2/ssl/sexigraf.key \
+#     -out /etc/apache2/ssl/sexigraf.crt
 
 a2enmod proxy
 a2enmod proxy_http
