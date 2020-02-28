@@ -24,12 +24,6 @@ rm -rf /dev/.udev/
 echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
 echo "pre-up sleep 2" >> /etc/network/interfaces
 
-# remove packer user
-deluser packer
-
-# Remove unwanted files
-rm -f /home/packer
-
 # purge locale
 find /usr/share/locale/* -maxdepth 0 -name 'en_US' -prune -o -exec rm -rf '{}' ';'
 
@@ -56,5 +50,5 @@ rm -rf /opt/graphite/storage/whisper/*
 # Purge possible proxy info
 rm -rf /etc/apt/apt.conf
 
-cat /dev/zero >zero.fill; sleep 1; sync; sleep 1; /bin/rm -f zero.fill
+cat /dev/zero >zero.fill &>/dev/null; sleep 1; sync; sleep 1; /bin/rm -f zero.fill
 # cat /dev/null > ~/.bash_history && history -c && exit

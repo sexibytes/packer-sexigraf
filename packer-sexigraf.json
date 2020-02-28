@@ -5,7 +5,7 @@
       "type": "vsphere-iso",
 
       "boot_command": [
-        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<wait><enter><wait><wait><f6><wait><esc><wait><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
@@ -48,9 +48,7 @@
       "guest_os_type": "{{user `guestid`}}",
       "iso_paths": "{{user `iso_path`}}",
       "ssh_username": "packer",
-      "ssh_password": "packer",
-      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
-      "shutdown_timeout": "5m"
+      "ssh_password": "packer"
     }
   ],
 
@@ -69,6 +67,15 @@
                 ]
             }
         }
+    },
+    {
+      "type": "shell",
+      "skip_clean": true,
+      "execute_command": "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}",
+      "inline": [
+          "rm -f /etc/sudoers.d/packer",
+          "/usr/sbin/userdel -r -f packer"
+      ]
     }
   ]
 }
