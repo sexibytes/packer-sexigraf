@@ -86,5 +86,6 @@ echo "\n@reboot         root    /bin/bash /root/PullGuestInfo.sh" >> /etc/cronta
 
 echo "Removing unused files"
 rm -f /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz
+rm /root/vmware-uninstall-vSphere-CLI.pl
 rm -rf /root/vmware-vsphere-cli-distrib/
 echo "SexiDone"
