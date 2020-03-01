@@ -80,6 +80,7 @@ chmod a+x /root/ViPullStatistics.pl
 chmod a+x /root/VsanPullStatistics.pl
 chmod a+x /root/getInventory.pl
 mkdir -p /var/log/sexigraf
+mkdir -p /var/log/apache2/graphite
 
 # Configure crontab for vmtools infos
 echo "\n@reboot         root    /bin/bash /root/PullGuestInfo.sh" >> /etc/crontab
