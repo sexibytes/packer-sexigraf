@@ -73,8 +73,8 @@
       "skip_clean": true,
       "execute_command": "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}",
       "inline": [
-          "rm -f /etc/sudoers.d/packer",
-          "userdel -rf packer &>/dev/null"
+          "rm -f /etc/sudoers.d/packer > /dev/null 2>&1",
+          "userdel -rf packer > /dev/null 2>&1"
       ]
     }
   ]
