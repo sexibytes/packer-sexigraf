@@ -44,5 +44,7 @@ if [[ $(fdisk -l|grep -i "Disk /dev/sdb") = *sdb* ]]; then
   /sbin/modprobe zfs
   mkdir -p /zfs
   zpool create sexipool /dev/sdb -m /zfs
-  sed -i -e "s/#LOCAL_DATA_DIR = \/opt\/graphite\/storage\/whisper\//LOCAL_DATA_DIR = \/zfs\//g" /opt/graphite/conf/carbon.conf
+  mkdir -p /zfs/whisper
+  sed -i -e "s/#LOCAL_DATA_DIR = \/opt\/graphite\/storage\/whisper\//LOCAL_DATA_DIR = \/zfs\/whisper\//g" /opt/graphite/conf/carbon.conf
+  # mv /opt/graphite/storage/whisper/*  /zfs/whisper/
 fi
