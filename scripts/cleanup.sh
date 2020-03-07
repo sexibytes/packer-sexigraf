@@ -24,31 +24,32 @@ rm -rf /dev/.udev/
 echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
 echo "pre-up sleep 2" >> /etc/network/interfaces
 
-# purge locale
+echo "purge locale"
 find /usr/share/locale/* -maxdepth 0 -name 'en_US' -prune -o -exec rm -rf '{}' ';'
 
-# Remove foreign language man files
+echo "Remove foreign language man files"
 rm -rf /usr/share/man/??
 rm -rf /usr/share/man/??_*
 
-# Clean doc files
+echo "Clean doc files"
 rm -rf /usr/share/doc/*
 
-# Clean up log files
+echo "Clean up log files"
 find /var/log -type f | while read f; do echo -ne '' > $f; done;
 find /opt/graphite/storage/log -type f | while read f; do echo -ne '' > $f; done;
 
-# Clean apt files
+echo "Clean apt files"
 rm -rf /var/lib/apt/lists/*
 
-# Remove temp files before compacting
+echo "Remove temp files before compacting"
 rm -rf /tmp/*
 rm -rf /usr/local/src/*
 rm -rf /opt/graphite/storage/whisper/*
 
 
-# Purge possible proxy info
+echo "Purge possible proxy info"
 rm -rf /etc/apt/apt.conf
 
-cat /dev/zero >zero.fill > /dev/null ; sleep 1; sync > /dev/null ; sleep 1; /bin/rm -f zero.fill > /dev/null
+echo "zeroing free space"
+cat /dev/zero >zero.fill &>/dev/null; sleep 1; sync; sleep 1; /bin/rm -f zero.fill
 # cat /dev/null > ~/.bash_history && history -c && exit
