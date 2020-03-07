@@ -63,6 +63,8 @@
                     "scripts/graphite.sh",
                     "scripts/grafana.sh",
                     "scripts/sexigraf.sh",
+                    "scripts/powershell.sh",
+                    "scripts/zfs.sh",
                     "scripts/cleanup.sh"
                 ]
             }

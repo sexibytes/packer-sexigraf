@@ -37,3 +37,8 @@ systemctl enable zfs.target
 systemctl enable zfs-zed.service
 systemctl enable zfs-import-cache.service
 systemctl enable zfs-import-scan.service
+# 
+if [[ $(fdisk -l|grep -i "Disk /dev/sdb") = *sdb* ]]; then
+  echo "Found /dev/sdb"
+fi
+# /sbin/modprobe zfs
