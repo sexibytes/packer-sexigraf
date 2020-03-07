@@ -10,6 +10,7 @@ sh autogen.sh
 make -s -j$(nproc)
 make install
 # 
+# https://github.com/openzfs/zfs/issues/6577
 ln -s /usr/local/lib/nvpair.a /usr/lib/nvpair.a
 ln -s /usr/local/lib/libnvpair.la /usr/lib/libnvpair.a
 ln -s /usr/local/lib/libnvpair.so /usr/lib/libnvpair.so
@@ -31,6 +32,7 @@ ln -s /usr/local/lib/libzfs.so /usr/lib/libzfs.so
 ln -s /usr/local/lib/libzfs.so.2 /usr/lib/libzfs.so.2
 ln -s /usr/local/lib/libzfs.so.2.0.0 /usr/lib/libzfs.so.2.0.0
 # 
+# https://github.com/openzfs/zfs/issues/8885
 systemctl enable zfs-import.target
 systemctl enable zfs-mount.service
 systemctl enable zfs.target
