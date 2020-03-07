@@ -41,6 +41,7 @@ systemctl enable zfs-import-cache.service
 systemctl enable zfs-import-scan.service
 # 
 if [[ $(fdisk -l|grep -i "Disk /dev/sdb") = *sdb* ]]; then
+  echo "mount sexipool"
   /sbin/modprobe zfs
   mkdir -p /zfs
   zpool create sexipool /dev/sdb -m /zfs
