@@ -39,6 +39,8 @@ systemctl enable zfs-import-cache.service
 systemctl enable zfs-import-scan.service
 # 
 if [[ $(fdisk -l|grep -i "Disk /dev/sdb") = *sdb* ]]; then
-  echo "Found /dev/sdb"
+  /sbin/modprobe zfs
+  mkdir -p /zfs
+  zpool create sexipool /dev/sdb -m /zfs
+  sed -i -e "s/#LOCAL_DATA_DIR = \/opt\/graphite\/storage\/whisper\//LOCAL_DATA_DIR = \/zfs\//g" /opt/graphite/conf/carbon.conf
 fi
-# /sbin/modprobe zfs
