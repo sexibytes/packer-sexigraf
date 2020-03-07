@@ -14,5 +14,5 @@ apt-get install -y powershell
 
 #Install PowerCLI
 # https://vdc-download.vmware.com/vmwb-repository/dcr-public/249b0685-9188-4214-bafe-db9132a8582d/2184c002-1c41-458a-8584-87a461c7da23/powercli1150-compat-matrix.html
-/usr/bin/pwsh -Command 'Install-Module -Name VMware.PowerCLI -Scope CurrentUser -Force -Confirm:$false'
-/usr/bin/pwsh -Command 'Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -Scope User -ParticipateInCEIP $false -ProxyPolicy noproxy -DisplayDeprecationWarnings $false -DefaultVIServerMode single'
+/usr/bin/pwsh -Command 'Install-Module -Name VMware.PowerCLI -Scope AllUsers -Force -Confirm:$false'
+/usr/bin/pwsh -Command 'Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -Scope AllUsers -ParticipateInCEIP $false -ProxyPolicy noproxy -DisplayDeprecationWarnings $false -DefaultVIServerMode single'
