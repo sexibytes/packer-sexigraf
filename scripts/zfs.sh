@@ -39,12 +39,13 @@ systemctl enable zfs.target
 systemctl enable zfs-zed.service
 systemctl enable zfs-import-cache.service
 systemctl enable zfs-import-scan.service
+/sbin/modprobe zfs
 # 
-if [[ $(fdisk -l|grep -i "Disk /dev/sdb") = *sdb* ]]; then
+if [[ $(/sbin/fdisk -l|grep -i "Disk /dev/sdb") = *sdb* ]]; then
   echo "mount sexipool"
   /sbin/modprobe zfs
   mkdir -p /zfs
-  zpool create sexipool /dev/sdb -m /zfs
+  /usr/local/sbin/zpool create sexipool /dev/sdb -m /zfs
   mkdir -p /zfs/whisper
   sed -i -e "s/#LOCAL_DATA_DIR = \/opt\/graphite\/storage\/whisper\//LOCAL_DATA_DIR = \/zfs\/whisper\//g" /opt/graphite/conf/carbon.conf
   # mv /opt/graphite/storage/whisper/*  /zfs/whisper/
