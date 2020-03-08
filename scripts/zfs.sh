@@ -7,8 +7,8 @@ cd ./zfs
 git checkout master
 sh autogen.sh
 ./configure
-make -s -j$(nproc)
-make install
+make -s -j$(nproc) > /dev/null 2>&1
+make install > /dev/null 2>&1
 # 
 # https://github.com/openzfs/zfs/issues/6577
 ln -s /usr/local/lib/nvpair.a /usr/lib/nvpair.a
@@ -33,20 +33,24 @@ ln -s /usr/local/lib/libzfs.so.2 /usr/lib/libzfs.so.2
 ln -s /usr/local/lib/libzfs.so.2.0.0 /usr/lib/libzfs.so.2.0.0
 # 
 # https://github.com/openzfs/zfs/issues/8885
-systemctl enable zfs-import.target
-systemctl enable zfs-mount.service
-systemctl enable zfs.target
-systemctl enable zfs-zed.service
-systemctl enable zfs-import-cache.service
-systemctl enable zfs-import-scan.service
-/sbin/modprobe zfs
 # 
-if [[ $(/sbin/fdisk -l|grep -i "Disk /dev/sdb") = *sdb* ]]; then
-  echo "mount sexipool"
+if fdisk -l|grep -i "/dev/sdb" > /dev/null; then
+  echo "enable zfs services"
+  # 
+  systemctl enable zfs-import.target
+  systemctl enable zfs-mount.service
+  systemctl enable zfs.target
+  systemctl enable zfs-zed.service
+  systemctl enable zfs-import-cache.service
+  systemctl enable zfs-import-scan.service
+  # 
   /sbin/modprobe zfs
+  # 
+  echo "mount sexipool"
   mkdir -p /zfs
-  /usr/local/sbin/zpool create sexipool /dev/sdb -m /zfs
+  zpool create -m /zfs sexipool /dev/sdb
   mkdir -p /zfs/whisper
+  echo "change whisper folder"
   sed -i -e "s/#LOCAL_DATA_DIR = \/opt\/graphite\/storage\/whisper\//LOCAL_DATA_DIR = \/zfs\/whisper\//g" /opt/graphite/conf/carbon.conf
   # mv /opt/graphite/storage/whisper/*  /zfs/whisper/
 fi
