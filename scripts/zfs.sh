@@ -52,5 +52,6 @@ if fdisk -l|grep -i "/dev/sdb" > /dev/null; then
   mkdir -p /zfs/whisper
   echo "change whisper folder"
   sed -i -e "s/#LOCAL_DATA_DIR = \/opt\/graphite\/storage\/whisper\//LOCAL_DATA_DIR = \/zfs\/whisper\//g" /opt/graphite/conf/carbon.conf
+  sed -i -e 's/#WHISPER_DIR = '"'"'\/opt\/graphite\/storage\/whisper'"'"'/WHISPER_DIR = '"'"'\/zfs\/whisper'"'"'/g' /opt/graphite/webapp/graphite/local_settings.py
   # mv /opt/graphite/storage/whisper/*  /zfs/whisper/
 fi
