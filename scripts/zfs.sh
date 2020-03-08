@@ -49,7 +49,16 @@ if fdisk -l|grep -i "/dev/sdb" > /dev/null; then
   echo "mount sexipool"
   mkdir -p /zfs
   zpool create -m /zfs sexipool /dev/sdb
-  mkdir -p /zfs/whisper
+  zfs create sexipool/whisper
+  zpool set autoexpand=on sexipool
+  zpool set autotrim=on sexipool
+  zfs set checksum=off sexipool
+  zfs set atime=off sexipool
+  zfs set sync=disabled sexipool
+  # mkdir -p /zfs/whisper
+  chmod 775 /zfs/whisper
+  chown www-data:carbon /zfs/whisper
+  chown -R carbon /zfs/whisper
   echo "change whisper folder"
   sed -i -e "s/#LOCAL_DATA_DIR = \/opt\/graphite\/storage\/whisper\//LOCAL_DATA_DIR = \/zfs\/whisper\//g" /opt/graphite/conf/carbon.conf
   sed -i -e 's/#WHISPER_DIR = '"'"'\/opt\/graphite\/storage\/whisper'"'"'/WHISPER_DIR = '"'"'\/zfs\/whisper'"'"'/g' /opt/graphite/webapp/graphite/local_settings.py
