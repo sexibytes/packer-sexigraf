@@ -1,5 +1,5 @@
 #https://github.com/openzfs/zfs/wiki/Building-ZFS
-DEBIAN_FRONTEND=noninteractive  apt install -y build-essential autoconf automake libtool gawk alien fakeroot dkms libblkid-dev uuid-dev libudev-dev libssl-dev zlib1g-dev libaio-dev libattr1-dev libelf-dev linux-headers-$(uname -r) python3 python3-dev python3-setuptools python3-cffi libffi-dev
+DEBIAN_FRONTEND=noninteractive  apt-get install -y build-essential autoconf automake libtool gawk alien fakeroot dkms libblkid-dev uuid-dev libudev-dev libssl-dev zlib1g-dev libaio-dev libattr1-dev libelf-dev linux-headers-$(uname -r) python3 python3-dev python3-setuptools python3-cffi libffi-dev
 # 
 cd /usr/local/src
 git clone https://github.com/openzfs/zfs
@@ -47,6 +47,7 @@ if fdisk -l|grep -i "/dev/sdb" > /dev/null; then
   /sbin/modprobe zfs
   # 
   echo "mount sexipool"
+  sleep 5s
   mkdir -p /zfs
   zpool create -m /zfs sexipool /dev/sdb
   zfs create sexipool/whisper
