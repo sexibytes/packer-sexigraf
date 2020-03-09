@@ -65,6 +65,7 @@
                     "scripts/sexigraf.sh",
                     "scripts/powershell.sh",
                     "scripts/zfs.sh",
+                    "scripts/netdata.sh",
                     "scripts/cleanup.sh"
                 ]
             }
