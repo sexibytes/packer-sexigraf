@@ -2,13 +2,13 @@
 DEBIAN_FRONTEND=noninteractive  apt-get install -y build-essential autoconf automake libtool gawk alien fakeroot dkms libblkid-dev uuid-dev libudev-dev libssl-dev zlib1g-dev libaio-dev libattr1-dev libelf-dev linux-headers-$(uname -r) python3 python3-dev python3-setuptools python3-cffi libffi-dev
 # 
 cd /usr/local/src
-git clone https://github.com/openzfs/zfs
+git clone https://github.com/openzfs/zfs -b zfs-0.8-release
 cd ./zfs
-git checkout master
+git checkout zfs-0.8-release
 sh autogen.sh
 ./configure
-make -s -j$(nproc) > /dev/null 2>&1
-make install > /dev/null 2>&1
+make -s -j$(nproc)
+make install
 # 
 # https://github.com/openzfs/zfs/issues/6577
 ln -s /usr/local/lib/nvpair.a /usr/lib/nvpair.a
