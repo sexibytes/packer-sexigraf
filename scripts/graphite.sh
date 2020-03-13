@@ -56,6 +56,7 @@ sed -i -e "s/MAX_CREATES_PER_MINUTE = 50/MAX_CREATES_PER_MINUTE = inf/g" /opt/gr
 sed -i -e "s/# GRAPHITE_URL = http\:\/\/127\.0\.0\.1\:80/GRAPHITE_URL = http\:\/\/127\.0\.0\.1\:8080/g" /opt/graphite/conf/carbon.conf
 sed -i -e "s/ENABLE_LOGROTATION = True/ENABLE_LOGROTATION = False\nLOG_DIR = \/var\/log\/sexigraf\//g" /opt/graphite/conf/carbon.conf
 sed -i -e "s/# LOG_LISTENER_CONN_SUCCESS = True/LOG_LISTENER_CONN_SUCCESS = False/g" /opt/graphite/conf/carbon.conf
+sed -i -e "s/# ENABLE_TAGS = True/ENABLE_TAGS = False/g" /opt/graphite/conf/carbon.conf
 sed -i -e "s/CACHE_WRITE_STRATEGY = sorted/CACHE_WRITE_STRATEGY = timesorted/g" /opt/graphite/conf/carbon.conf
 mkdir -p /var/log/sexigraf
 #
