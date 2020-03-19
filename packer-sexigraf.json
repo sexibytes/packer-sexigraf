@@ -45,6 +45,7 @@
       "RAM": 8192,
       "disk_size": 16384,
       "disk_thin_provisioned": true,
+      "disk_controller_type": "pvscsi",
       "guest_os_type": "{{user `guestid`}}",
       "iso_paths": "{{user `iso_path`}}",
       "ssh_username": "packer",
