@@ -14,6 +14,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumbe
 # https://code.vmware.com/docs/6530/vsphere-sdk-for-perl-installation-guide/doc/GUID-16A5A35D-1E05-4DD4-8E02-BEA6BF24A77B.html
 # https://vdc-repo.vmware.com/vmwb-repository/dcr-public/f280c443-0cda-4fed-8e15-7dc07e2b7037/66ce9472-ffd3-4e80-83b4-1bcfeec2099e/doc/GUID-8B0E6E94-A215-4904-935D-1B164C3941A8.html#GUID-8B0E6E94-A215-4904-935D-1B164C3941A8
 # https://vdc-download.vmware.com/vmwb-repository/dcr-public/ae41a1d3-b1ac-4f7c-a1d4-4774ddd05e99/2d5ae4b7-d040-4de1-824d-eb339b09cf6e/vsphere-perl-sdk-67-release-notes.html#supported
+# https://communities.vmware.com/message/2298661#2298661
 
 /bin/cp -rf /tmp/sexigraf-dev6/root/* /root/
 tar -zxf /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz -C /root/
@@ -21,6 +22,9 @@ tar -zxf /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz -C /root/
 cpanm ExtUtils::MakeMaker@6.96
 cpanm Net::FTP@2.77
 cpanm Module::Build@0.4205
+#
+# cpanm Crypt::SSLeay@0.72
+cpanm LWP@6.26
 #
 cpanm Net::Graphite
 cpanm Log::Log4perl
