@@ -1,6 +1,6 @@
 # Grafana
 #
-DEBIAN_FRONTEND=noninteractive apt-get install -y adduser libfontconfig1 sqlite3
+DEBIAN_FRONTEND=noninteractive apt-get install -y adduser libfontconfig1 sqlite3 libxss1 libasound2
 #
 cd /root
 wget https://dl.grafana.com/oss/release/grafana_6.7.1_amd64.deb -O /tmp/grafana.deb
@@ -25,3 +25,7 @@ sleep 1s
 echo "Remove anoying gettingstarted plugin banner"
 # https://github.com/grafana/grafana/issues/8402
 sqlite3 /var/lib/grafana/grafana.db "update user set help_flags1 = 1 where login = 'admin';"
+#
+# https://github.com/grafana/grafana/issues/16495
+# https://github.com/grafana/grafana-image-renderer
+grafana-cli plugins install grafana-image-renderer
