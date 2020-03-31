@@ -9,3 +9,4 @@ sed -i -e "s/# x-frame-options response header =/x-frame-options response header
 sed -i -e "s/# hostname = sexigraf/# hostname = sexigraf\n          bind socket to IP = 127.0.0.1/g" /etc/netdata/netdata.conf
 # 
 systemctl restart netdata
+rm -f /root/kickstart.sh
