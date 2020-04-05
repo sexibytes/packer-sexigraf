@@ -17,7 +17,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumbe
 # https://communities.vmware.com/message/2298661#2298661
 
 /bin/cp -rf /tmp/sexigraf-dev6/root/* /root/
-tar -zxf /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz -C /root/
+# tar -zxf /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz -C /root/
+tar -zxf /root/VMware-vSphere-Perl-SDK-7.0.0-15889270.x86_64.tar.gz -C /root/
 
 cpanm ExtUtils::MakeMaker@6.96
 cpanm Net::FTP@2.77
@@ -33,7 +34,7 @@ cpanm JSON
 # sed -i 's/ubuntu/debian/g' /root/vmware-vsphere-cli-distrib/vmware-install.pl
 # sed -i 's/# $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = "Net::SSL";/$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = "Net::SSL";/g' /root/vmware-vsphere-cli-distrib/lib/VMware/share/VMware/VICommon.pm
 
-wget -q --no-proxy https://raw.githubusercontent.com/sexibytes/sexigraf/dev6/root/vmware-uninstall-vSphere-CLI.pl -O /root/vmware-vsphere-cli-distrib/bin/vmware-uninstall-vSphere-CLI.pl
+# wget -q --no-proxy https://raw.githubusercontent.com/sexibytes/sexigraf/dev6/root/vmware-uninstall-vSphere-CLI.pl -O /root/vmware-vsphere-cli-distrib/bin/vmware-uninstall-vSphere-CLI.pl
 
 yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 
@@ -95,7 +96,7 @@ mkdir -p /var/log/apache2/graphite
 echo "\n@reboot         root    /bin/bash /root/PullGuestInfo.sh" >> /etc/crontab
 
 echo "Removing unused files"
-rm -f /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz
-rm /root/vmware-uninstall-vSphere-CLI.pl
+rm -f /root/VMware-vSphere-Perl-SDK-*.tar.gz
+# rm /root/vmware-uninstall-vSphere-CLI.pl
 rm -rf /root/vmware-vsphere-cli-distrib/
 echo "SexiDone"
