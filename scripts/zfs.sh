@@ -49,7 +49,7 @@ if fdisk -l|grep -i "/dev/sdb" > /dev/null; then
   echo "mount sexipool"
   sleep 5s
   mkdir -p /zfs
-  zpool create -m /zfs sexipool /dev/sdb
+  zpool create -fd -m /zfs sexipool /dev/sdb
   zfs create sexipool/whisper
   zpool set autoexpand=on sexipool
   zpool set autotrim=on sexipool
