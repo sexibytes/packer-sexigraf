@@ -17,7 +17,6 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumbe
 # https://communities.vmware.com/message/2298661#2298661
 
 /bin/cp -rf /tmp/sexigraf-dev6/root/* /root/
-# tar -zxf /root/VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz -C /root/
 tar -zxf /root/VMware-vSphere-Perl-SDK-7.0.0-15889270.x86_64.tar.gz -C /root/
 
 cpanm ExtUtils::MakeMaker@6.96
@@ -97,6 +96,5 @@ echo "\n@reboot         root    /bin/bash /root/PullGuestInfo.sh" >> /etc/cronta
 
 echo "Removing unused files"
 rm -f /root/VMware-vSphere-Perl-SDK-*.tar.gz
-# rm /root/vmware-uninstall-vSphere-CLI.pl
 rm -rf /root/vmware-vsphere-cli-distrib/
 echo "SexiDone"
