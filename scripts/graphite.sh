@@ -6,9 +6,9 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config fontconfig apache2 
 #
 cd /usr/local/src
 echo "git clone graphite"
-git clone https://github.com/graphite-project/graphite-web.git
-git clone https://github.com/graphite-project/carbon.git
-git clone https://github.com/graphite-project/whisper.git
+git clone https://github.com/graphite-project/graphite-web.git -b 1.1.x
+git clone https://github.com/graphite-project/carbon.git -b 1.1.x
+git clone https://github.com/graphite-project/whisper.git -b 1.1.x
 #
 echo "install graphite & co"
 pip3 install pip --upgrade
@@ -20,6 +20,10 @@ cd ../graphite-web; pip3 install -r requirements.txt; python3 check-dependencies
 cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
 sed -i -e "s/UNSAFE_DEFAULT/`date | md5sum | cut -d ' ' -f 1`/" /opt/graphite/webapp/graphite/local_settings.py
 sed -i -e "s/#SECRET_KEY/SECRET_KEY/g" /opt/graphite/webapp/graphite/local_settings.py
+#
+# /opt/graphite/webapp/graphite/local_settings.py
+# FIND_TIMEOUT = 10.0  # Timeout for metric find requests
+# FETCH_TIMEOUT = 10.0  # Timeout to fetch series data
 #
 cp /opt/graphite/examples/example-graphite-vhost.conf /etc/apache2/sites-available/graphite.conf
 cp /opt/graphite/conf/graphite.wsgi.example /opt/graphite/conf/graphite.wsgi
@@ -43,7 +47,9 @@ chown -R carbon /opt/graphite/storage/whisper
 # mkdir /opt/graphite/storage/log/apache2
 chown -R www-data /opt/graphite/storage/log/webapp
 cp /usr/local/src/carbon/distro/debian/init.d/carbon-cache /etc/init.d/carbon-cache
+cp /usr/local/src/carbon/distro/debian/init.d/carbon-relay /etc/init.d/carbon-relay
 chmod +x /etc/init.d/carbon-cache
+chmod +x /etc/init.d/carbon-relay
 # 
 cp /opt/graphite/bin/build-index /etc/cron.hourly/graphite-build-index
 chmod 755 /etc/cron.hourly/graphite-build-index
@@ -57,7 +63,8 @@ sed -i -e "s/# GRAPHITE_URL = http\:\/\/127\.0\.0\.1\:80/GRAPHITE_URL = http\:\/
 sed -i -e "s/ENABLE_LOGROTATION = True/ENABLE_LOGROTATION = False\nLOG_DIR = \/var\/log\/sexigraf\//g" /opt/graphite/conf/carbon.conf
 sed -i -e "s/# LOG_LISTENER_CONN_SUCCESS = True/LOG_LISTENER_CONN_SUCCESS = False/g" /opt/graphite/conf/carbon.conf
 sed -i -e "s/# ENABLE_TAGS = True/ENABLE_TAGS = False/g" /opt/graphite/conf/carbon.conf
-sed -i -e "s/CACHE_WRITE_STRATEGY = sorted/CACHE_WRITE_STRATEGY = timesorted/g" /opt/graphite/conf/carbon.conf
+# sed -i -e "s/CACHE_WRITE_STRATEGY = sorted/CACHE_WRITE_STRATEGY = timesorted/g" /opt/graphite/conf/carbon.conf
+# TAG_UPDATE_INTERVAL
 mkdir -p /var/log/sexigraf
 #
 cp /opt/graphite/conf/graphTemplates.conf.example /opt/graphite/conf/graphTemplates.conf
@@ -66,10 +73,12 @@ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-sc
 # 
 # https://wiki.debian.org/LSBInitScripts
 sed -i '/^#!\/bin\/bash/a ### BEGIN INIT INFO\n# Provides:          carbon-cache\n# Required-Start:    $remote_fs $syslog\n# Required-Stop:     $remote_fs $syslog\n# Default-Start:     2 3 4 5\n# Default-Stop:      0 1 6\n# Short-Description: Start carbon-cache at boot time\n# Description:       Enable service provided by carbon-cache\n### END INIT INFO' /etc/init.d/carbon-cache
+sed -i '/^#!\/bin\/bash/a ### BEGIN INIT INFO\n# Provides:          carbon-relay\n# Required-Start:    $remote_fs $syslog\n# Required-Stop:     $remote_fs $syslog\n# Default-Start:     2 3 4 5\n# Default-Stop:      0 1 6\n# Short-Description: Start carbon-relay at boot time\n# Description:       Enable service provided by carbon-relay\n### END INIT INFO' /etc/init.d/carbon-relay
 # 
 sed -i '/Alias \/static\/ \/opt\/graphite\/static\//a\        <Directory \/opt\/graphite\/static\/>\n                Require all granted\n        <\/Directory>\n \n' /etc/apache2/sites-available/graphite.conf
 # 
 update-rc.d carbon-cache defaults
+# update-rc.d carbon-relay defaults
 service carbon-cache start
 systemctl restart apache2
 # 
