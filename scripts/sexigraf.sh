@@ -23,7 +23,7 @@ cpanm ExtUtils::MakeMaker@6.96
 cpanm Net::FTP@2.77
 cpanm Module::Build@0.4205
 #
-# cpanm Crypt::SSLeay@0.72
+cpanm Crypt::SSLeay@0.72
 cpanm LWP@6.26
 cpanm XML::NamespaceSupport@1.12
 cpanm XML::LibXML@2.0204
