@@ -23,7 +23,7 @@ cpanm ExtUtils::MakeMaker
 cpanm Net::FTP
 cpanm Module::Build
 #
-# cpanm Crypt::SSLeay@0.72
+cpanm Crypt::SSLeay
 cpanm LWP
 cpanm XML::NamespaceSupport
 cpanm XML::LibXML
@@ -33,6 +33,10 @@ cpanm Log::Log4perl
 cpanm JSON
 
 yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
+
+
+sed -i 's/# $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS}/$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS}/g' /usr/share/perl/5.26/VMware/VICommon.pm
+
 
 /bin/cp -rf /tmp/sexigraf-dev6/etc/* /etc/
 /bin/cp -rf /tmp/sexigraf-dev6/usr/* /usr/
