@@ -5,11 +5,11 @@ wget -q --no-proxy https://github.com/sexibytes/sexigraf/archive/dev6.zip -O /tm
 unzip /tmp/sexigraf-src.zip -d /tmp/
 
 # Create empty folder for logs
-mkdir /var/log/sexigraf/
+mkdir -p /var/log/sexigraf/
 #
 apt-get update -y
 # DEBIAN_FRONTEND=noninteractive apt-get -y -t unstable --no-install-recommends install graphite-carbon graphite-web collectd
-DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumber-bytes-human-perl xml-twig-tools libsnmp30 cpanminus genisoimage collectd lib32z1 lib32ncurses5 build-essential uuid uuid-dev libssl-dev perl-doc libxml-libxml-perl libcrypt-ssleay-perl libsoap-lite-perl libmodule-build-perl libxml2 cpanminus sysstat snmp
+DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumber-bytes-human-perl xml-twig-tools libsnmp30 cpanminus genisoimage collectd lib32z1 lib32ncurses5 build-essential uuid uuid-dev libssl-dev perl-doc libxml-libxml-perl libcrypt-ssleay-perl libsoap-lite-perl libmodule-build-perl libxml2 cpanminus sysstat snmp #memcached
 
 # https://code.vmware.com/docs/6530/vsphere-sdk-for-perl-installation-guide/doc/GUID-16A5A35D-1E05-4DD4-8E02-BEA6BF24A77B.html
 # https://vdc-repo.vmware.com/vmwb-repository/dcr-public/f280c443-0cda-4fed-8e15-7dc07e2b7037/66ce9472-ffd3-4e80-83b4-1bcfeec2099e/doc/GUID-8B0E6E94-A215-4904-935D-1B164C3941A8.html#GUID-8B0E6E94-A215-4904-935D-1B164C3941A8
@@ -19,21 +19,18 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumbe
 /bin/cp -rf /tmp/sexigraf-dev6/root/* /root/
 tar -zxf /root/VMware-vSphere-Perl-SDK-7.0.0-15889270.x86_64.tar.gz -C /root/
 
-cpanm ExtUtils::MakeMaker@6.96
-cpanm Net::FTP@2.77
-cpanm Module::Build@0.4205
+cpanm ExtUtils::MakeMaker
+cpanm Net::FTP
+cpanm Module::Build
 #
 # cpanm Crypt::SSLeay@0.72
-cpanm LWP@6.26
+cpanm LWP
+cpanm XML::NamespaceSupport
+cpanm XML::LibXML
 #
 cpanm Net::Graphite
 cpanm Log::Log4perl
 cpanm JSON
-
-# sed -i 's/ubuntu/debian/g' /root/vmware-vsphere-cli-distrib/vmware-install.pl
-# sed -i 's/# $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = "Net::SSL";/$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = "Net::SSL";/g' /root/vmware-vsphere-cli-distrib/lib/VMware/share/VMware/VICommon.pm
-
-# wget -q --no-proxy https://raw.githubusercontent.com/sexibytes/sexigraf/dev6/root/vmware-uninstall-vSphere-CLI.pl -O /root/vmware-vsphere-cli-distrib/bin/vmware-uninstall-vSphere-CLI.pl
 
 yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 
@@ -83,6 +80,7 @@ sed -i 's/http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
 a2enmod proxy
 a2enmod proxy_http
 a2enmod ssl
+# a2enmod socache_shmcb
 
 chmod a+x /root/PullGuestInfo.sh
 chmod a+x /root/ViPullStatistics.pl
