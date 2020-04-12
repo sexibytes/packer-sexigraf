@@ -4,7 +4,7 @@ DEBIAN_FRONTEND=noninteractive  apt-get install -y build-essential autoconf auto
 cd /usr/local/src
 git clone https://github.com/openzfs/zfs -b zfs-0.8-release
 cd ./zfs
-git checkout zfs-0.8.2
+git checkout zfs-0.8.3
 sh autogen.sh
 ./configure
 make -s -j$(nproc)
