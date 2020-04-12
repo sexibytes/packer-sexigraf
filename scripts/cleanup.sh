@@ -11,8 +11,8 @@
 # DEBIAN_FRONTEND=noninteractive apt-get -y clean
 
 # Removing leftover leases and persistent rules
-echo "cleaning up dhcp leases"
-rm /var/lib/dhcp/*
+# echo "cleaning up dhcp leases"
+# rm /var/lib/dhcp/*
 
 # Make sure Udev doesn't block our network
 echo "cleaning up udev rules"
