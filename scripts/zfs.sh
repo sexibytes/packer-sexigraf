@@ -4,7 +4,7 @@ DEBIAN_FRONTEND=noninteractive  apt-get install -y build-essential autoconf auto
 cd /usr/local/src
 git clone https://github.com/openzfs/zfs -b zfs-0.8-release
 cd ./zfs
-git checkout zfs-0.8-release
+git checkout zfs-0.8.2
 sh autogen.sh
 ./configure
 make -s -j$(nproc)
@@ -50,9 +50,10 @@ if fdisk -l|grep -i "/dev/sdb" > /dev/null; then
   sleep 5s
   mkdir -p /zfs
   zpool create -fd -m /zfs sexipool /dev/sdb
+  sleep 5s
   zfs create sexipool/whisper
   zpool set autoexpand=on sexipool
-  zpool set autotrim=on sexipool
+  # zpool set autotrim=on sexipool
   zfs set checksum=off sexipool
   zfs set atime=off sexipool
   zfs set sync=disabled sexipool
@@ -64,4 +65,6 @@ if fdisk -l|grep -i "/dev/sdb" > /dev/null; then
   sed -i -e "s/#LOCAL_DATA_DIR = \/opt\/graphite\/storage\/whisper\//LOCAL_DATA_DIR = \/zfs\/whisper\//g" /opt/graphite/conf/carbon.conf
   sed -i -e 's/#WHISPER_DIR = '"'"'\/opt\/graphite\/storage\/whisper'"'"'/WHISPER_DIR = '"'"'\/zfs\/whisper'"'"'/g' /opt/graphite/webapp/graphite/local_settings.py
   # mv /opt/graphite/storage/whisper/*  /zfs/whisper/
+  # https://kb.vmware.com/s/article/2053145
+  echo "options vmw_pvscsi cmd_per_lun=254 ring_pages=32" > /etc/modprobe.d/pvscsi
 fi
