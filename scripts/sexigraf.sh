@@ -9,7 +9,7 @@ mkdir -p /var/log/sexigraf/
 #
 apt-get update -y
 # DEBIAN_FRONTEND=noninteractive apt-get -y -t unstable --no-install-recommends install graphite-carbon graphite-web collectd
-DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumber-bytes-human-perl xml-twig-tools libsnmp30 cpanminus genisoimage collectd lib32z1 lib32ncurses5 build-essential uuid uuid-dev libssl-dev perl-doc libxml-libxml-perl libcrypt-ssleay-perl libsoap-lite-perl libmodule-build-perl libxml2 cpanminus sysstat snmp memcached
+DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumber-bytes-human-perl xml-twig-tools libsnmp30 cpanminus genisoimage collectd lib32z1 lib32ncurses5 build-essential uuid uuid-dev libssl-dev perl-doc libxml-libxml-perl libcrypt-ssleay-perl libsoap-lite-perl libmodule-build-perl libxml2 cpanminus sysstat snmp memcached net-tools
 
 # https://code.vmware.com/docs/6530/vsphere-sdk-for-perl-installation-guide/doc/GUID-16A5A35D-1E05-4DD4-8E02-BEA6BF24A77B.html
 # https://vdc-repo.vmware.com/vmwb-repository/dcr-public/f280c443-0cda-4fed-8e15-7dc07e2b7037/66ce9472-ffd3-4e80-83b4-1bcfeec2099e/doc/GUID-8B0E6E94-A215-4904-935D-1B164C3941A8.html#GUID-8B0E6E94-A215-4904-935D-1B164C3941A8
@@ -19,22 +19,22 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumbe
 /bin/cp -rf /tmp/sexigraf-dev6/root/* /root/
 tar -zxf /root/VMware-vSphere-Perl-SDK-7.0.0-15889270.x86_64.tar.gz -C /root/
 
-cpanm ExtUtils::MakeMaker@6.96
-cpanm Net::FTP@2.77
-cpanm Module::Build@0.4205
+cpanm ExtUtils::MakeMaker
+cpanm Net::FTP
+cpanm Module::Build
 #
-cpanm Crypt::SSLeay@0.72
-cpanm LWP@6.26
-cpanm XML::NamespaceSupport@1.12
-cpanm XML::LibXML@2.0204
+# cpanm Crypt::SSLeay@0.72
+# cpanm LWP@6.26
+# cpanm XML::NamespaceSupport@1.12
+# cpanm XML::LibXML@2.0204
 #
 cpanm Net::Graphite
 cpanm Log::Log4perl
 cpanm JSON
 
-sed -i 's/# $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS}/$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS}/g' /usr/share/perl/5.26/VMware/VICommon.pm
-
 yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
+
+# sed -i 's/# $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS}/$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS}/g' /usr/share/perl/*/VMware/VICommon.pm
 
 /bin/cp -rf /tmp/sexigraf-dev6/etc/* /etc/
 /bin/cp -rf /tmp/sexigraf-dev6/usr/* /usr/
