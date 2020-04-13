@@ -41,6 +41,16 @@ yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 /bin/cp -rf /tmp/sexigraf-dev6/var/* /var/
 /bin/cp -rf /tmp/sexigraf-dev6/opt/* /opt/
 
+# randomize SECRET_KEY
+sed -i -e "s/Sex1Gr4f/`date | md5sum | cut -d ' ' -f 1`/" /opt/graphite/webapp/graphite/local_settings.py
+# moving carbon from single node to relay + dual node
+cp /usr/local/src/carbon/distro/debian/init.d/carbon-relay /etc/init.d/carbon-relay
+sed -i '/^#!\/bin\/bash/a ### BEGIN INIT INFO\n# Provides:          carbon-relay\n# Required-Start:    $remote_fs $syslog\n# Required-Stop:     $remote_fs $syslog\n# Default-Start:     2 3 4 5\n# Default-Stop:      0 1 6\n# Short-Description: Start carbon-relay at boot time\n# Description:       Enable service provided by carbon-relay\n### END INIT INFO' /etc/init.d/carbon-relay
+chmod +x /etc/init.d/carbon-relay
+update-rc.d carbon-relay defaults
+service carbon-cache restart
+service carbon-relay start
+
 echo "Switching Grafana logo to SexiGraf one"
 mv /usr/share/grafana/public/img/grafana_icon.svg /usr/share/grafana/public/img/grafana_icon_orig.svg
 ln -s /usr/share/grafana/public/img/sexigraf.svg /usr/share/grafana/public/img/grafana_icon.svg
