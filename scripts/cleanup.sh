@@ -11,8 +11,8 @@
 # DEBIAN_FRONTEND=noninteractive apt-get -y clean
 
 # Removing leftover leases and persistent rules
-# echo "cleaning up dhcp leases"
-# rm /var/lib/dhcp/*
+echo "cleaning up dhcp leases"
+rm /var/lib/dhcp/*
 
 # Make sure Udev doesn't block our network
 echo "cleaning up udev rules"
@@ -50,8 +50,8 @@ rm -rf /opt/graphite/storage/whisper/*
 echo "Purge possible proxy info"
 rm -rf /etc/apt/apt.conf
 
-echo "remove popularity-contest"
-rm -f /etc/cron.d/popularity-contest
+# echo "remove popularity-contest"
+# rm -f /etc/cron.d/popularity-contest
 
 echo "zeroing free space"
 cat /dev/zero >zero.fill &>/dev/null; sleep 1; sync; sleep 1; /bin/rm -f zero.fill
