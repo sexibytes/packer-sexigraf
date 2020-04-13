@@ -15,7 +15,10 @@ pip3 install pip --upgrade
 pip3 install setuptools --upgrade
 cd whisper; python3 setup.py install
 cd ../carbon; pip3 install -r requirements.txt; python3 setup.py install
-cd ../graphite-web; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
+# https://github.com/obfuscurity/synthesize/blob/master/install
+cd ../graphite-web; pip3 install django==2.2.9; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
+# also install service_identity to remove TLS error
+pip3 install txamqp service_identity --upgrade
 #
 cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
 sed -i -e "s/UNSAFE_DEFAULT/`date | md5sum | cut -d ' ' -f 1`/" /opt/graphite/webapp/graphite/local_settings.py
@@ -24,6 +27,7 @@ sed -i -e "s/#SECRET_KEY/SECRET_KEY/g" /opt/graphite/webapp/graphite/local_setti
 # /opt/graphite/webapp/graphite/local_settings.py
 # FIND_TIMEOUT = 10.0  # Timeout for metric find requests
 # FETCH_TIMEOUT = 10.0  # Timeout to fetch series data
+# MEMCACHE_HOSTS = ['127.0.0.1:11211']
 #
 cp /opt/graphite/examples/example-graphite-vhost.conf /etc/apache2/sites-available/graphite.conf
 cp /opt/graphite/conf/graphite.wsgi.example /opt/graphite/conf/graphite.wsgi
