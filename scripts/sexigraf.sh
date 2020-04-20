@@ -6,6 +6,9 @@ unzip /tmp/sexigraf-src.zip -d /tmp/
 
 # Create empty folder for logs
 mkdir -p /var/log/sexigraf/
+mkdir -p /var/log/sexigraf/graphite/
+chown -R www-data:root /var/log/sexigraf/graphite/
+mkdir -p /var/log/sexigraf/carbon/
 #
 apt-get update -y
 # DEBIAN_FRONTEND=noninteractive apt-get -y -t unstable --no-install-recommends install graphite-carbon graphite-web collectd
