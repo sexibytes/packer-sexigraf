@@ -14,6 +14,7 @@ echo "install graphite & co"
 pip3 install pip --upgrade
 pip3 install setuptools --upgrade
 cd whisper; python3 setup.py install
+
 cd ../carbon; pip3 install -r requirements.txt; python3 setup.py install
 # https://github.com/obfuscurity/synthesize/blob/master/install
 cd ../graphite-web; pip3 install django==2.2.9; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
