@@ -45,6 +45,9 @@ echo "Remove temp files before compacting"
 rm -rf /tmp/*
 rm -rf /usr/local/src/*
 rm -rf /opt/graphite/storage/whisper/*
+if [ -d "/mnt/wfs/whisper" ]; then
+    rm -rf /mnt/wfs/whisper/*
+fi
 
 
 echo "Purge possible proxy info"
