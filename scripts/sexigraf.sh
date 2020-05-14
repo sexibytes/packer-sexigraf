@@ -39,6 +39,9 @@ yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 
 # sed -i 's/# $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS}/$ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS}/g' /usr/share/perl/*/VMware/VICommon.pm
 
+# export PERL_MM_USE_DEFAULT=1
+# cpan -f -i GAAS/libwww-perl-5.837.tar.gz
+
 /bin/cp -rf /tmp/sexigraf-dev6/etc/* /etc/
 /bin/cp -rf /tmp/sexigraf-dev6/usr/* /usr/
 /bin/cp -rf /tmp/sexigraf-dev6/var/* /var/
