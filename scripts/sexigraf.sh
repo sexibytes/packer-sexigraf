@@ -26,10 +26,27 @@ cpanm ExtUtils::MakeMaker
 cpanm Net::FTP
 cpanm Module::Build
 #
-# cpanm Crypt::SSLeay@0.72
-# cpanm LWP@6.26
-# cpanm XML::NamespaceSupport@1.12
-# cpanm XML::LibXML@2.0204
+cpanm Time::Piece
+cpanm Archive::Zip
+cpanm ExtUtils::Installed
+cpanm Path::Class
+cpanm Try::Tiny
+cpanm Crypt::SSLeay
+cpanm version
+cpanm Data::Dumper
+cpanm HTML::Parser
+cpanm UUID
+cpanm XML::SAX
+cpanm XML::NamespaceSupport
+cpanm XML::LibXML::Common
+cpanm XML::LibXML
+cpanm LWP
+cpanm LWP::Protocol::https
+cpanm Socket6
+cpanm Text::Template
+cpanm IO::Socket::INET6
+cpanm Net::INET6Glue
+cpanm Net::HTTP
 #
 cpanm Net::Graphite
 cpanm Log::Log4perl
