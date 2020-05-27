@@ -51,6 +51,7 @@ cpanm Net::HTTP
 cpanm Net::Graphite
 cpanm Log::Log4perl
 cpanm JSON
+cpanm Sys::SigAction
 
 yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 
