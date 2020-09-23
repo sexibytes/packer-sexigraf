@@ -38,13 +38,21 @@
       "vm_name": "sexigraf",
       "host": "{{user `esx_server`}}",
       "datastore": "{{user `datastore`}}",
-      "network": "{{user `portgroup`}}",
-      "network_card": "vmxnet3",
+      "network_adapters": [
+        {
+          "network": "{{user `portgroup`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
       "vm_version": "10",
       "CPUs": 2,
       "RAM": 8192,
-      "disk_size": 16384,
-      "disk_thin_provisioned": true,
+      "storage": [
+        {
+          "disk_size": 16384,
+          "disk_thin_provisioned": true
+        }
+      ],
       "disk_controller_type": "pvscsi",
       "guest_os_type": "{{user `guestid`}}",
       "iso_paths": "{{user `iso_path`}}",
