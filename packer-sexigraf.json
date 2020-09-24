@@ -55,7 +55,7 @@
         {
           "disk_size": 32384,
           "disk_thin_provisioned": true
-        },        
+        }
       ],
       "disk_controller_type": "pvscsi",
       "guest_os_type": "{{user `guestid`}}",
