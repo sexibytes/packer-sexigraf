@@ -44,7 +44,7 @@
           "network_card": "vmxnet3"
         }
       ],
-      "vm_version": "10",
+      "vm_version": "11",
       "CPUs": 2,
       "RAM": 8192,
       "storage": [
