@@ -101,17 +101,12 @@ sed -i 's/;check_for_updates = true/check_for_updates = false/g' /etc/grafana/gr
 sed -i 's/;disable_gravatar = false/disable_gravatar = true/g' /etc/grafana/grafana.ini
 sed -i 's/http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
 
-# mkdir -p /etc/apache2/ssl
+mkdir -p /etc/apache2/ssl
 
-# openssl req \
-#     -new \
-#     -newkey rsa:4096 \
-#     -days 3650 \
-#     -nodes \
-#     -x509 \
-#     -subj "/C=FR/ST=IDF/L=Paris/O=SexiBytes/CN=sexigraf.sexibyt.es" \
-#     -keyout /etc/apache2/ssl/sexigraf.key \
-#     -out /etc/apache2/ssl/sexigraf.crt
+openssl req -newkey rsa:4096 -days 3650 -nodes -x509 \
+    -subj "/C=FR/ST=Paris/L=Paris/O=SexiBytes/OU=SexiDevs/CN=sexigraf.sexibyt.es/emailAddress=plot@sexigraf.fr" \
+    -keyout /etc/apache2/ssl/sexigraf.key \
+    -out /etc/apache2/ssl/sexigraf.crt
 
 a2enmod proxy
 a2enmod proxy_http
