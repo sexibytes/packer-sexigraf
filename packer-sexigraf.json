@@ -53,7 +53,7 @@
           "disk_thin_provisioned": true
         },
         {
-          "disk_size": 32384,
+          "disk_size": 32768,
           "disk_thin_provisioned": true
         }
       ],
