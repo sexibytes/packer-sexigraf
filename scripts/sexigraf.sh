@@ -19,7 +19,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumbe
 # https://vdc-download.vmware.com/vmwb-repository/dcr-public/ae41a1d3-b1ac-4f7c-a1d4-4774ddd05e99/2d5ae4b7-d040-4de1-824d-eb339b09cf6e/vsphere-perl-sdk-67-release-notes.html#supported
 # https://communities.vmware.com/message/2298661#2298661
 
-/bin/cp -rf /tmp/sexigraf-dev6/root/* /root/
+/bin/cp -rf /tmp/sexigraf-develop/root/* /root/
 tar -zxf /root/VMware-vSphere-Perl-SDK-7.0.0-16815913.x86_64.tar.gz -C /root/
 
 cpanm ExtUtils::MakeMaker
@@ -60,10 +60,10 @@ yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 # export PERL_MM_USE_DEFAULT=1
 # cpan -f -i GAAS/libwww-perl-5.837.tar.gz
 
-/bin/cp -rf /tmp/sexigraf-dev6/etc/* /etc/
-/bin/cp -rf /tmp/sexigraf-dev6/usr/* /usr/
-/bin/cp -rf /tmp/sexigraf-dev6/var/* /var/
-/bin/cp -rf /tmp/sexigraf-dev6/opt/* /opt/
+/bin/cp -rf /tmp/sexigraf-develop/etc/* /etc/
+/bin/cp -rf /tmp/sexigraf-develop/usr/* /usr/
+/bin/cp -rf /tmp/sexigraf-develop/var/* /var/
+/bin/cp -rf /tmp/sexigraf-develop/opt/* /opt/
 
 # randomize SECRET_KEY
 sed -i -e "s/Sex1Gr4f/`date | md5sum | cut -d ' ' -f 1`/" /opt/graphite/webapp/graphite/local_settings.py
