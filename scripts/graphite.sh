@@ -4,6 +4,14 @@
 # 
 DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config fontconfig apache2 libapache2-mod-wsgi-py3 git-core collectd gcc g++ make libtool automake python3-dev python3-pip apache2-bin apache2-data apache2-utils php-cli php-common php-json php-readline php-fpm libapache2-mod-php php-curl
 #
+# apt install software-properties-common -y
+# add-apt-repository ppa:deadsnakes/ppa -y
+# apt-get update
+# apt install python3.9 python3-pip python3.9-dev -y
+# pip3 install pip --upgrade
+# update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
+# update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
+#
 cd /usr/local/src
 echo "git clone graphite"
 git clone https://github.com/graphite-project/graphite-web.git -b 1.1.x
@@ -11,7 +19,7 @@ git clone https://github.com/graphite-project/carbon.git -b 1.1.x
 git clone https://github.com/graphite-project/whisper.git -b 1.1.x
 #
 echo "install graphite & co"
-pip3 install pip --upgrade
+pip3 install -Iv pip==20.3.4 --upgrade
 pip3 install setuptools --upgrade
 cd whisper; python3 setup.py install
 
