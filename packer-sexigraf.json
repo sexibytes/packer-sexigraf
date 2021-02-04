@@ -50,14 +50,16 @@
       "storage": [
         {
           "disk_size": 16384,
-          "disk_thin_provisioned": true
+          "disk_thin_provisioned": true,
+          "disk_controller_index": 0
         },
         {
           "disk_size": 32768,
-          "disk_thin_provisioned": true
+          "disk_thin_provisioned": true,
+          "disk_controller_index": 1
         }
       ],
-      "disk_controller_type": "pvscsi",
+      "disk_controller_type": ["pvscsi","pvscsi"],
       "guest_os_type": "{{user `guestid`}}",
       "iso_paths": "{{user `iso_path`}}",
       "ssh_username": "packer",
