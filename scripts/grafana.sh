@@ -3,7 +3,7 @@
 DEBIAN_FRONTEND=noninteractive apt-get install -y adduser libfontconfig1 sqlite3 libxss1 libasound2
 #
 cd /root
-wget https://dl.grafana.com/oss/release/grafana_7.3.1_amd64.deb -O /tmp/grafana.deb
+wget https://dl.grafana.com/oss/release/grafana_7.4.0_amd64.deb -O /tmp/grafana.deb
 DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/grafana.deb
 # 
 systemctl daemon-reload
