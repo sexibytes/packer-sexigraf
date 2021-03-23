@@ -3,7 +3,7 @@
 # https://github.com/obfuscurity/synthesize
 # 
 DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config fontconfig apache2 libapache2-mod-wsgi-py3 git-core collectd gcc g++ make libtool automake python3-dev python3-pip apache2-bin apache2-data apache2-utils php-cli php-common php-json php-readline php-fpm libapache2-mod-php php-curl
-#
+# 
 # apt install software-properties-common -y
 # add-apt-repository ppa:deadsnakes/ppa -y
 # apt-get update
@@ -11,28 +11,28 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config fontconfig apache2 
 # pip3 install pip --upgrade
 # update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
 # update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
-#
+# 
 cd /usr/local/src
 echo "git clone graphite"
 git clone https://github.com/graphite-project/graphite-web.git -b 1.1.x
 git clone https://github.com/graphite-project/carbon.git -b 1.1.x
 git clone https://github.com/graphite-project/whisper.git -b 1.1.x
-#
+# 
 echo "install graphite & co"
 pip3 install -Iv pip==20.3.4 --upgrade
 pip3 install setuptools --upgrade
 cd whisper; python3 setup.py install
-
+# 
 cd ../carbon; pip3 install -r requirements.txt; python3 setup.py install
 # https://github.com/obfuscurity/synthesize/blob/master/install
 cd ../graphite-web; pip3 install django==2.2.9; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
 # also install service_identity to remove TLS error
 pip3 install txamqp service_identity --upgrade
-#
+# 
 cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
 sed -i -e "s/UNSAFE_DEFAULT/`date | md5sum | cut -d ' ' -f 1`/" /opt/graphite/webapp/graphite/local_settings.py
 sed -i -e "s/#SECRET_KEY/SECRET_KEY/g" /opt/graphite/webapp/graphite/local_settings.py
-#
+# 
 cp /opt/graphite/examples/example-graphite-vhost.conf /etc/apache2/sites-available/graphite.conf
 cp /opt/graphite/conf/graphite.wsgi.example /opt/graphite/conf/graphite.wsgi
 # 
@@ -42,7 +42,7 @@ a2dissite 000-default
 a2ensite graphite
 a2enmod headers
 service apache2 restart
-#
+# 
 PYTHONPATH=/opt/graphite/webapp django-admin.py migrate --settings=graphite.settings # --run-syncdb
 PYTHONPATH=/opt/graphite/webapp django-admin.py collectstatic --noinput --settings=graphite.settings
 # 
@@ -72,7 +72,7 @@ sed -i -e "s/# LOG_LISTENER_CONN_SUCCESS = True/LOG_LISTENER_CONN_SUCCESS = Fals
 sed -i -e "s/# ENABLE_TAGS = True/ENABLE_TAGS = False/g" /opt/graphite/conf/carbon.conf
 # sed -i -e "s/CACHE_WRITE_STRATEGY = sorted/CACHE_WRITE_STRATEGY = max/g" /opt/graphite/conf/carbon.conf
 mkdir -p /var/log/sexigraf
-#
+# 
 cp /opt/graphite/conf/graphTemplates.conf.example /opt/graphite/conf/graphTemplates.conf
 cp /opt/graphite/conf/storage-aggregation.conf.example /opt/graphite/conf/storage-aggregation.conf
 cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf
@@ -86,3 +86,4 @@ update-rc.d carbon-cache defaults
 service carbon-cache start
 systemctl restart apache2
 # 
+echo "export PYTHONPATH=/opt/graphite/webapp" >> /root/.bashrc
