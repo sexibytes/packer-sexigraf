@@ -15,6 +15,10 @@ sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
 # https://kb.vmware.com/s/article/2053145
 echo "options vmw_pvscsi cmd_per_lun=254 ring_pages=32" > /etc/modprobe.d/pvscsi
 
+# fixing eth0 naming
+sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"net.ifnames=0 biosdevname=0\"/g' /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+
 if fdisk -l|grep -i "/dev/sdb" > /dev/null; then
 # https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-storage-devices-in-linux
 # https://askubuntu.com/questions/384062/how-do-i-create-and-tune-an-ext4-partition-from-the-command-line
