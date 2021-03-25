@@ -18,6 +18,11 @@ echo "options vmw_pvscsi cmd_per_lun=254 ring_pages=32" > /etc/modprobe.d/pvscsi
 # fixing eth0 naming
 sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"net.ifnames=0 biosdevname=0\"/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
+sed -i 's/ens160/eth0/g' /etc/network/interfaces
+sed -i 's/ens192/eth0/g' /etc/network/interfaces
+sed -i 's/ens224/eth0/g' /etc/network/interfaces
+sed -i 's/ens256/eth0/g' /etc/network/interfaces
+
 
 # Enable ESX timesync
 vmware-toolbox-cmd timesync enable
