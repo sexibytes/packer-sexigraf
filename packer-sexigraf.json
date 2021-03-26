@@ -81,6 +81,7 @@
                     "scripts/sexigraf.sh",
                     "scripts/powershell.sh",
                     "scripts/netdata.sh",
+                    "scripts/govc.sh",
                     "scripts/cleanup.sh"
                 ]
             }
