@@ -20,7 +20,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumbe
 # https://communities.vmware.com/message/2298661#2298661
 
 /bin/cp -rf /tmp/sexigraf-develop/root/* /root/
-tar -zxf /root/VMware-vSphere-Perl-SDK-7.0.0-16815913.x86_64.tar.gz -C /root/
+tar -zxf /root/VMware-vSphere-Perl-SDK-7.0.0-17698549.x86_64.tar.gz -C /root/
 
 cpanm ExtUtils::MakeMaker
 cpanm Net::FTP
