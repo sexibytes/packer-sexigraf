@@ -78,8 +78,8 @@
                     "scripts/graphite.sh",
                     "scripts/grafana.sh",
                     "scripts/telegraf.sh",
-                    "scripts/sexigraf.sh",
                     "scripts/powershell.sh",
+                    "scripts/sexigraf.sh",
                     "scripts/netdata.sh",
                     "scripts/govc.sh",
                     "scripts/cleanup.sh"
