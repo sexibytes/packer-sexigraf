@@ -99,7 +99,7 @@ sed -i 's/;disable_sanitize_html = false/disable_sanitize_html = true/g' /etc/gr
 sed -i 's/;reporting_enabled = true/reporting_enabled = false/g' /etc/grafana/grafana.ini
 sed -i 's/;check_for_updates = true/check_for_updates = false/g' /etc/grafana/grafana.ini
 sed -i 's/;disable_gravatar = false/disable_gravatar = true/g' /etc/grafana/grafana.ini
-sed -i 's/http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
+sed -i 's/;http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
 
 mkdir -p /etc/apache2/ssl
 
@@ -112,6 +112,7 @@ a2enmod proxy
 a2enmod proxy_http
 a2enmod ssl
 a2enmod socache_shmcb
+a2enmod rewrite
 
 chmod a+x /root/PullGuestInfo.sh
 chmod a+x /root/ViPullStatistics.pl
