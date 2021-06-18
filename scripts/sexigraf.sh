@@ -65,6 +65,8 @@ yes | PAGER=cat /root/vmware-vsphere-cli-distrib/vmware-install.pl default
 /bin/cp -rf /tmp/sexigraf-develop/var/* /var/
 /bin/cp -rf /tmp/sexigraf-develop/opt/* /opt/
 
+/bin/mv /opt/sexigraf/powershell.config.json /opt/microsoft/powershell/7/
+
 # randomize SECRET_KEY
 sed -i -e "s/Sex1Gr4f/`date | md5sum | cut -d ' ' -f 1`/" /opt/graphite/webapp/graphite/local_settings.py
 # moving carbon from single node to relay + dual node
