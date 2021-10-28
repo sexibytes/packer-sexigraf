@@ -110,7 +110,7 @@ echo "allow_local_mode = true" >> /etc/grafana/grafana.ini
 systemctl restart grafana-server
 sleep 5s
 #
-curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViVmCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","path":"/mnt/wfs/ViVmInventory.csv"}' http://admin:admin@localhost:3000/api/datasources
+curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViVmCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/ViVmInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
 sleep 1s
 #
 echo "Grafana default configuration completed, switching default password"
