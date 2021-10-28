@@ -18,10 +18,6 @@ sleep 1s
 curl --noproxy localhost -H "Content-Type: application/json" -X PUT -d '{"theme": "light"}' http://admin:admin@localhost:3000/api/user/preferences
 sleep 1s
 # 
-echo "Grafana default configuration completed, switching default password"
-curl --noproxy localhost -H "Content-Type: application/json" -X PUT -d '{"oldPassword":"admin","newPassword":"Sex!Gr@f","confirmNew":"Sex!Gr@f"}' http://admin:admin@localhost:3000/api/user/password
-sleep 1s
-# 
 echo "Remove anoying gettingstarted plugin banner"
 # https://github.com/grafana/grafana/issues/8402
 sqlite3 /var/lib/grafana/grafana.db "update user set help_flags1 = 1 where login = 'admin';"
@@ -29,3 +25,6 @@ sqlite3 /var/lib/grafana/grafana.db "update user set help_flags1 = 1 where login
 # https://github.com/grafana/grafana/issues/16495
 # https://github.com/grafana/grafana-image-renderer
 grafana-cli plugins install grafana-image-renderer
+#
+# https://marcus.se.net/grafana-csv-datasource/
+grafana-cli plugins install marcusolsson-csv-datasource
