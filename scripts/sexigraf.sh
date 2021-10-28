@@ -103,6 +103,21 @@ sed -i 's/;check_for_updates = true/check_for_updates = false/g' /etc/grafana/gr
 sed -i 's/;disable_gravatar = false/disable_gravatar = true/g' /etc/grafana/grafana.ini
 sed -i 's/;http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
 
+# https://marcus.se.net/grafana-csv-datasource/
+mv /opt/sexi/ViVmInventory.csv /mnt/wfs/ViVmInventory.csv
+echo "[plugin.marcusolsson-csv-datasource]" >> /etc/grafana/grafana.ini
+echo "allow_local_mode = true" >> /etc/grafana/grafana.ini
+systemctl restart grafana-server
+sleep 5s
+#
+curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViVmCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","path":"/mnt/wfs/ViVmInventory.csv"}' http://admin:admin@localhost:3000/api/datasources
+sleep 1s
+#
+echo "Grafana default configuration completed, switching default password"
+curl --noproxy localhost -H "Content-Type: application/json" -X PUT -d '{"oldPassword":"admin","newPassword":"Sex!Gr@f","confirmNew":"Sex!Gr@f"}' http://admin:admin@localhost:3000/api/user/password
+sleep 1s
+# 
+
 mkdir -p /etc/apache2/ssl
 
 openssl req -newkey rsa:4096 -days 3650 -nodes -x509 \
