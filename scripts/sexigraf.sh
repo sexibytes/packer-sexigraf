@@ -104,7 +104,7 @@ sed -i 's/;disable_gravatar = false/disable_gravatar = true/g' /etc/grafana/graf
 sed -i 's/;http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
 
 # https://marcus.se.net/grafana-csv-datasource/
-mv /opt/sexi/ViVmInventory.csv /mnt/wfs/ViVmInventory.csv
+mv /opt/sexigraf/ViVmInventory.csv /mnt/wfs/ViVmInventory.csv
 echo "[plugin.marcusolsson-csv-datasource]" >> /etc/grafana/grafana.ini
 echo "allow_local_mode = true" >> /etc/grafana/grafana.ini
 systemctl restart grafana-server
