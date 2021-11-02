@@ -18,4 +18,4 @@ apt-get install -y powershell
 /usr/bin/pwsh -Command 'Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -ParticipateInCEIP $false -ProxyPolicy noproxy -DisplayDeprecationWarnings $false -DefaultVIServerMode single -Scope AllUsers -Confirm:$false'
 
 # clone Graphite-PowerShell-Functions
-git clone https://github.com/MattHodge/Graphite-PowerShell-Functions.git /usr/local/share/powershell/Modules/Graphite-PowerShell-Functions
+git clone https://github.com/sexibytes/Graphite-PowerShell-Functions.git /usr/local/share/powershell/Modules/Graphite-PowerShell-Functions
