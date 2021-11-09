@@ -105,13 +105,16 @@ sed -i 's/;http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
 
 # https://marcus.se.net/grafana-csv-datasource/
 mkdir -p /mnt/wfs/inventory/
-mv /opt/sexigraf/ViVmInventory.csv /mnt/wfs/inventory/ViVmInventory.csv
+mv /opt/sexigraf/*.csv /mnt/wfs/inventory/
 echo "[plugin.marcusolsson-csv-datasource]" >> /etc/grafana/grafana.ini
 echo "allow_local_mode = true" >> /etc/grafana/grafana.ini
 systemctl restart grafana-server
 sleep 10s
 #
 curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViVmCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/ViVmInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
+sleep 1s
+#
+curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViEsxCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/ViEsxInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
 sleep 1s
 #
 echo "Grafana default configuration completed, switching default password"
