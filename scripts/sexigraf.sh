@@ -136,7 +136,7 @@ a2enmod ssl
 a2enmod socache_shmcb
 a2enmod rewrite
 
-chmod a+x /root/PullGuestInfo.sh
+chmod a+x /opt/sexigraf/PullGuestInfo.sh
 # chmod a+x /root/ViPullStatistics.pl
 # chmod a+x /root/VsanPullStatistics.pl
 # chmod a+x /root/getInventory.pl
@@ -150,7 +150,7 @@ mkdir -p /var/log/sexigraf
 mkdir -p /var/log/apache2/graphite
 
 # Configure crontab for vmtools infos
-echo "\n@reboot         root    /bin/bash /root/PullGuestInfo.sh" >> /etc/crontab
+echo "\n@reboot         root    /bin/bash /opt/sexigraf/PullGuestInfo.sh" >> /etc/crontab
 
 echo "Removing unused files"
 # rm -f /root/VMware-vSphere-Perl-SDK-*.tar.gz
