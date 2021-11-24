@@ -1,0 +1,79 @@
+{
+
+  "builders": [
+    {
+      "type": "vsphere-iso",
+
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><wait>",
+        "<enter><wait>",
+        "/install/vmlinuz<wait>",
+        " initrd=/install/initrd.gz",
+        " auto-install/enable=true",
+        " debconf/priority=critical",
+        " preseed/url=https://raw.githubusercontent.com/sexibytes/packer-sexilog/master/preseed.cfg<wait>",
+        " -- <wait>",
+        "<enter><wait>"
+      ],
+
+      "vcenter_server": "{{user `esx_server`}}",
+      "username": "root",
+      "password": "{{user `esx_root_pwd`}}",
+      "insecure_connection": true,
+      "vm_name": "sexigraf20",
+      "host": "{{user `esx_server`}}",
+      "datastore": "{{user `datastore`}}",
+      "network_adapters": [
+        {
+          "network": "{{user `portgroup`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "vm_version": "11",
+      "CPUs": 2,
+      "RAM": 8192,
+      "storage": [
+        {
+          "disk_size": 16384,
+          "disk_thin_provisioned": true,
+          "disk_controller_index": 0
+        },
+        {
+          "disk_size": 32768,
+          "disk_thin_provisioned": true,
+          "disk_controller_index": 1
+        }
+      ],
+      "disk_controller_type": ["pvscsi","pvscsi"],
+      "guest_os_type": "{{user `guestid`}}",
+      "iso_paths": "{{user `iso_path`}}",
+      "ssh_username": "packer",
+      "ssh_password": "packer"
+    }
+  ],
+
+  "provisioners": [
+    {
+        "type": "shell",
+        "execute_command": "echo 'packer' | sudo -S sh '{{.Path}}'",
+        "override": {
+            "vsphere-iso": {
+                "scripts": [
+                    "scripts/base-20.sh",
+                    "scripts/cleanup.sh"
+                ]
+            }
+        }
+    },
+    {
+      "type": "shell",
+      "skip_clean": true,
+      "execute_command": "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}",
+      "inline": [
+          "rm -f /etc/sudoers.d/packer > /dev/null 2>&1",
+          "userdel -rf packer > /dev/null 2>&1"
+      ]
+    }
+  ]
+}
