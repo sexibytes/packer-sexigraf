@@ -12,7 +12,7 @@
         " initrd=/install/initrd.gz",
         " auto-install/enable=true",
         " debconf/priority=critical",
-        " preseed/url=https://raw.githubusercontent.com/sexibytes/packer-sexilog/master/preseed.cfg<wait>",
+        " preseed/url=https://raw.githubusercontent.com/sexibytes/packer-sexigraf/develop/preseed-20.cfg<wait>",
         " -- <wait>",
         "<enter><wait>"
       ],
@@ -61,7 +61,13 @@
             "vsphere-iso": {
                 "scripts": [
                     "scripts/base-20.sh",
-                    "scripts/cleanup.sh"
+                    "scripts/graphite-20.sh",
+                    "scripts/grafana-20.sh",
+                    "scripts/powershell-20.sh",
+                    "scripts/sexigraf-20.sh",
+                    "scripts/netdata.sh",
+                    "scripts/govc-20.sh",
+                    "scripts/cleanup-20.sh"
                 ]
             }
         }

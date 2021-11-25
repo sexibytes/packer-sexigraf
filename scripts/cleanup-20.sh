@@ -54,7 +54,7 @@ echo "Purge possible proxy info"
 rm -rf /etc/apt/apt.conf
 
 # echo "remove popularity-contest"
-# rm -f /etc/cron.d/popularity-contest
+rm -f /etc/cron.d/popularity-contest
 
 echo "zeroing free space"
 cd /root
