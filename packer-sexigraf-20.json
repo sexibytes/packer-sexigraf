@@ -63,6 +63,7 @@
                     "scripts/base-20.sh",
                     "scripts/graphite-20.sh",
                     "scripts/grafana-20.sh",
+                    "scripts/telegraf-20.sh",
                     "scripts/powershell-20.sh",
                     "scripts/sexigraf-20.sh",
                     "scripts/netdata.sh",
