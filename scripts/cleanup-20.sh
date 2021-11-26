@@ -49,6 +49,24 @@ if [ -d "/mnt/wfs/whisper" ]; then
     rm -rf /mnt/wfs/whisper/*
 fi
 
+# disable netplan
+apt -y purge netplan.io
+
+cat >/etc/network/interfaces <<EOL
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+pre-up sleep 2
+EOL
 
 echo "Purge possible proxy info"
 rm -rf /etc/apt/apt.conf
