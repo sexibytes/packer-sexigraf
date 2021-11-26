@@ -51,7 +51,7 @@ fi
 
 # disable netplan
 apt -y purge netplan.io
-
+systemctl disable systemd-resolved
 cat >/etc/network/interfaces <<EOL
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
