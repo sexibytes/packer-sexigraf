@@ -5,14 +5,28 @@
       "type": "vsphere-iso",
 
       "boot_command": [
-        "<esc><wait>",
-        "<esc><wait>",
-        "<enter><wait>",
+        "<wait><enter><wait><wait><f6><wait><esc><wait><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "/install/vmlinuz<wait>",
-        " initrd=/install/initrd.gz",
-        " auto-install/enable=true",
-        " debconf/priority=critical",
-        " preseed/url=https://raw.githubusercontent.com/sexibytes/packer-sexigraf/develop/preseed-20.cfg<wait>",
+        " auto<wait>",
+        " console-setup/ask_detect=false<wait>",
+        " console-setup/layoutcode=us<wait>",
+        " console-setup/modelcode=pc105<wait>",
+        " debconf/frontend=noninteractive<wait>",
+        " debian-installer=en_US.UTF-8<wait>",
+        " fb=false<wait>",
+        " initrd=/install/initrd.gz<wait>",
+        " kbd-chooser/method=us<wait>",
+        " keyboard-configuration/layout=USA<wait>",
+        " keyboard-configuration/variant=USA<wait>",
+        " locale=en_US.UTF-8<wait>",
+        " netcfg/get_domain=sexibyt.es<wait>",
+        " netcfg/get_hostname=sexigraf<wait>",
+        " grub-installer/bootdev=/dev/sda<wait>",
+        " noapic<wait>",
+        " preseed/url=https://raw.githubusercontent.com/sexibytes/packer-sexigraf/master/preseed.cfg<wait>",
         " -- <wait>",
         "<enter><wait>"
       ],
@@ -21,7 +35,7 @@
       "username": "root",
       "password": "{{user `esx_root_pwd`}}",
       "insecure_connection": true,
-      "vm_name": "sexigraf20",
+      "vm_name": "sexigraf",
       "host": "{{user `esx_server`}}",
       "datastore": "{{user `datastore`}}",
       "network_adapters": [
@@ -60,15 +74,15 @@
         "override": {
             "vsphere-iso": {
                 "scripts": [
-                    "scripts/base-20.sh",
-                    "scripts/graphite-20.sh",
-                    "scripts/grafana-20.sh",
-                    "scripts/telegraf-20.sh",
-                    "scripts/powershell-20.sh",
-                    "scripts/sexigraf-20.sh",
+                    "scripts/base.sh",
+                    "scripts/graphite.sh",
+                    "scripts/grafana.sh",
+                    "scripts/telegraf.sh",
+                    "scripts/powershell.sh",
+                    "scripts/sexigraf.sh",
                     "scripts/netdata.sh",
-                    "scripts/govc-20.sh",
-                    "scripts/cleanup-20.sh"
+                    "scripts/govc.sh",
+                    "scripts/cleanup.sh"
                 ]
             }
         }

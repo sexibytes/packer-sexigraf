@@ -11,18 +11,18 @@
 # DEBIAN_FRONTEND=noninteractive apt-get -y clean
 
 # Removing leftover leases and persistent rules
-echo "cleaning up dhcp leases"
-rm /var/lib/dhcp/*
+# echo "cleaning up dhcp leases"
+# rm /var/lib/dhcp/*
 
 # Make sure Udev doesn't block our network
-echo "cleaning up udev rules"
+# echo "cleaning up udev rules"
 # rm /etc/udev/rules.d/70-persistent-net.rules
 # mkdir /etc/udev/rules.d/70-persistent-net.rules
-rm -rf /dev/.udev/
+# rm -rf /dev/.udev/
 # rm /lib/udev/rules.d/75-persistent-net-generator.rules
 
-echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
-echo "pre-up sleep 2" >> /etc/network/interfaces
+# echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
+# echo "pre-up sleep 2" >> /etc/network/interfaces
 
 echo "purge locale"
 find /usr/share/locale/* -maxdepth 0 -name 'en_US' -prune -o -exec rm -rf '{}' ';'
@@ -49,13 +49,32 @@ if [ -d "/mnt/wfs/whisper" ]; then
     rm -rf /mnt/wfs/whisper/*
 fi
 
+# disable netplan
+apt -y purge netplan.io
+systemctl disable systemd-resolved
+cat >/etc/network/interfaces <<EOL
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+pre-up sleep 2
+EOL
 
 echo "Purge possible proxy info"
 rm -rf /etc/apt/apt.conf
 
 # echo "remove popularity-contest"
-# rm -f /etc/cron.d/popularity-contest
+rm -f /etc/cron.d/popularity-contest
 
 echo "zeroing free space"
+cd /root
 cat /dev/zero >zero.fill &>/dev/null; sleep 1; sync; sleep 1; /bin/rm -f zero.fill
 # cat /dev/null > ~/.bash_history && history -c && exit
