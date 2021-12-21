@@ -143,8 +143,8 @@ chmod a+x /opt/sexigraf/PullGuestInfo.sh
 chmod a+x /opt/sexigraf/*.ps1
 
 echo "Intialise empty PS credentials store"
-/usr/bin/pwsh -f /opt/sexigraf/CredstoreAdmin.ps1 -createstore -credstore /var/www/.vmware/credstore/vipscredentials.xml
-chown www-data:www-data /var/www/.vmware/credstore/vipscredentials.xml
+/usr/bin/pwsh -f /opt/sexigraf/CredstoreAdmin.ps1 -createstore -credstore /mnt/wfs/inventory/vipscredentials.xml
+chown www-data:www-data /mnt/wfs/inventory/vipscredentials.xml
 
 mkdir -p /var/log/sexigraf
 mkdir -p /var/log/apache2/graphite
