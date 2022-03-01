@@ -3,7 +3,7 @@
 DEBIAN_FRONTEND=noninteractive apt-get install -y adduser libfontconfig1 sqlite3 libxss1 libasound2 libx11-xcb1 libxcomposite1 libxcursor1 libxdamage1 libxi6 libxtst6 libnss3 libcups2 libxrandr2 libatk1.0-0 libatk-bridge2.0-0 libpangocairo-1.0-0 libgtk-3-0 libgbm-dev libxshmfence-dev
 #
 cd /root
-wget https://dl.grafana.com/oss/release/grafana_8.3.6_amd64.deb -O /tmp/grafana.deb
+wget https://dl.grafana.com/oss/release/grafana_7.5.15_amd64.deb -O /tmp/grafana.deb
 DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/grafana.deb
 # 
 systemctl daemon-reload
