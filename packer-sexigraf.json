@@ -17,9 +17,9 @@
         "<enter><wait>"
       ],
 
-      "vcenter_server": "{{user `esx_server`}}",
-      "username": "root",
-      "password": "{{user `esx_root_pwd`}}",
+      "vcenter_server": "{{user `vcenter_server`}}",
+      "username": "{{user `vpx_usr`}}",
+      "password": "{{user `vpx_pwd`}}",
       "insecure_connection": true,
       "vm_name": "sexigraf",
       "host": "{{user `esx_server`}}",
