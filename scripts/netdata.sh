@@ -2,7 +2,7 @@
 # DEBIAN_FRONTEND=noninteractive  apt-get -y install autoconf-archive autogen cmake libjudy-dev liblz4-dev libmnl-dev libuv1-dev python3-pymongo
 # 
 wget https://my-netdata.io/kickstart.sh -O /root/kickstart.sh
-sh /root/kickstart.sh --non-interactive --no-updates --stable-channel --disable-telemetry --disable-cloud
+sh /root/kickstart.sh --non-interactive --no-updates --stable-channel --disable-telemetry
 # bash <(curl -Ss https://my-netdata.io/kickstart.sh) all --dont-wait --non-interactive --no-updates --stable-channel
 # https://github.com/netdata/netdata/issues/1735
 # sed -i -e "s/# x-frame-options response header =/x-frame-options response header = sameorigin/g" /etc/netdata/netdata.conf
