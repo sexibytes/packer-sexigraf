@@ -12,5 +12,5 @@ export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
-go get github.com/vmware/govmomi/govc
-go get github.com/vmware/govmomi/vcsim
+go install github.com/vmware/govmomi/govc@latest
+go install github.com/vmware/govmomi/vcsim@latest
