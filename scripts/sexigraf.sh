@@ -94,8 +94,15 @@ cat >/var/www/.vmware/credstore/vicredentials.xml <<EOL
 EOL
 
 chown -R www-data. /var/www/
-
 chown root:grafana /etc/grafana/provisioning/dashboards/*.yaml
+
+# TODO add annotation limits
+# # Configures for how long alert annotations are stored. Default is 0, which keeps them forever.
+# # This setting should be expressed as a duration. Examples: 6h (hours), 10d (days), 2w (weeks), 1M (month).
+# ;max_annotation_age =
+
+# # Configures max number of alert annotations that Grafana stores. Default value is 0, which keeps all alert annotations.
+# ;max_annotations_to_keep =
 
 # https://github.com/grafana/grafana/issues/15647
 sed -i 's/;disable_sanitize_html = false/disable_sanitize_html = true/g' /etc/grafana/grafana.ini
