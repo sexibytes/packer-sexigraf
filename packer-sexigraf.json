@@ -49,7 +49,9 @@
       "guest_os_type": "{{user `guestid`}}",
       "iso_paths": "{{user `iso_path`}}",
       "ssh_username": "packer",
-      "ssh_password": "packer"
+      "ssh_password": "packer",
+
+      "create_snapshot": "true"
     }
   ],
 
