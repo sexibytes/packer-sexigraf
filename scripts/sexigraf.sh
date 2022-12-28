@@ -127,6 +127,9 @@ sleep 1s
 curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViEsxCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/ViEsxInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
 sleep 1s
 #
+curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViDsCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/ViDsInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
+sleep 1s
+#
 echo "Grafana default configuration completed, switching default password"
 curl --noproxy localhost -H "Content-Type: application/json" -X PUT -d '{"oldPassword":"admin","newPassword":"Sex!Gr@f","confirmNew":"Sex!Gr@f"}' http://admin:admin@localhost:3000/api/user/password
 sleep 1s
@@ -134,10 +137,7 @@ sleep 1s
 
 mkdir -p /etc/apache2/ssl
 
-openssl req -newkey rsa:4096 -days 3650 -nodes -x509 \
-    -subj "/C=FR/ST=Paris/L=Paris/O=SexiBytes/OU=SexiDevs/CN=sexigraf.sexibyt.es/emailAddress=plot@sexigraf.fr" \
-    -keyout /etc/apache2/ssl/sexigraf.key \
-    -out /etc/apache2/ssl/sexigraf.crt
+openssl req -newkey rsa:4096 -days 3650 -nodes -x509 -subj "/C=FR/ST=Paris/L=Paris/O=SexiBytes/OU=SexiDevs/CN=sexigraf.sexibyt.es/emailAddress=plot@sexigraf.fr" -keyout /etc/apache2/ssl/sexigraf.key -out /etc/apache2/ssl/sexigraf.crt
 
 a2enmod proxy
 a2enmod proxy_http
