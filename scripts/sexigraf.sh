@@ -50,14 +50,6 @@ EOL
 chown -R www-data. /var/www/
 chown root:grafana /etc/grafana/provisioning/dashboards/*.yaml
 
-# TODO add annotation limits
-# # Configures for how long alert annotations are stored. Default is 0, which keeps them forever.
-# # This setting should be expressed as a duration. Examples: 6h (hours), 10d (days), 2w (weeks), 1M (month).
-# ;max_annotation_age =
-
-# # Configures max number of alert annotations that Grafana stores. Default value is 0, which keeps all alert annotations.
-# ;max_annotations_to_keep =
-
 # https://github.com/grafana/grafana/issues/15647
 sed -i 's/;disable_sanitize_html = false/disable_sanitize_html = true/g' /etc/grafana/grafana.ini
 # customizing grafana
@@ -66,6 +58,8 @@ sed -i 's/;check_for_updates = true/check_for_updates = false/g' /etc/grafana/gr
 sed -i 's/;disable_gravatar = false/disable_gravatar = true/g' /etc/grafana/grafana.ini
 sed -i 's/;http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
 sed -i 's/;force_migration = false/force_migration = true/g' /etc/grafana/grafana.ini
+sed -i 's/;max_annotation_age =/max_annotation_age = 1y/g' /etc/grafana/grafana.ini
+sed -i 's/;max_annotations_to_keep =/max_annotations_to_keep = 9999/g' /etc/grafana/grafana.ini
 
 # https://marcus.se.net/grafana-csv-datasource/
 mkdir -p /mnt/wfs/inventory/
