@@ -61,8 +61,8 @@ sed -i 's/;http_addr =/http_addr = 127.0.0.1/g' /etc/grafana/grafana.ini
 sed -i 's/;max_annotation_age =/max_annotation_age = 1y/g' /etc/grafana/grafana.ini
 sed -i 's/;max_annotations_to_keep =/max_annotations_to_keep = 9999/g' /etc/grafana/grafana.ini
 # disabling unified_alerting
-sed i 's/\[unified_alerting\]/[unified_alerting]\nenabled = false/g' /etc/grafana/grafana.ini
-sed i 's/\[alerting\]/[alerting]\nenabled = false/g' /etc/grafana/grafana.ini
+sed -i 's/\[unified_alerting\]/[unified_alerting]\nenabled = false/g' /etc/grafana/grafana.ini
+sed -i 's/\[alerting\]/[alerting]\nenabled = false/g' /etc/grafana/grafana.ini
 
 # https://marcus.se.net/grafana-csv-datasource/
 mkdir -p /mnt/wfs/inventory/
