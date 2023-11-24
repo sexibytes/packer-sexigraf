@@ -37,15 +37,15 @@ echo "Switching Grafana logo to SexiGraf one"
 mv /usr/share/grafana/public/img/grafana_icon.svg /usr/share/grafana/public/img/grafana_icon_orig.svg
 ln -s /usr/share/grafana/public/img/sexigraf.svg /usr/share/grafana/public/img/grafana_icon.svg
 
-echo "Intialise empty credentials store"
-mkdir -p /var/www/.vmware/credstore
+# echo "Intialise empty credentials store"
+# mkdir -p /var/www/.vmware/credstore
 
-cat >/var/www/.vmware/credstore/vicredentials.xml <<EOL
-<?xml version="1.0" encoding="UTF-8"?>
-<viCredentials>
-    <version>1.1</version>
-</viCredentials>
-EOL
+# cat >/var/www/.vmware/credstore/vicredentials.xml <<EOL
+# <?xml version="1.0" encoding="UTF-8"?>
+# <viCredentials>
+#     <version>1.1</version>
+# </viCredentials>
+# EOL
 
 chown -R www-data. /var/www/
 chown root:grafana /etc/grafana/provisioning/dashboards/*.yaml
@@ -81,6 +81,9 @@ sleep 1s
 curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViDsCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/ViDsInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
 sleep 1s
 #
+curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViVbrCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/VbrVmInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
+sleep 1s
+#
 echo "Grafana default configuration completed, switching default password"
 curl --noproxy localhost -H "Content-Type: application/json" -X PUT -d '{"oldPassword":"admin","newPassword":"Sex!Gr@f","confirmNew":"Sex!Gr@f"}' http://admin:admin@localhost:3000/api/user/password
 sleep 1s
@@ -99,9 +102,11 @@ a2enmod rewrite
 chmod a+x /opt/sexigraf/PullGuestInfo.sh
 chmod a+x /opt/sexigraf/*.ps1
 
-echo "Intialise empty PS credentials store"
+echo "Intialise empty PS credentials stores"
 /usr/bin/pwsh -f /opt/sexigraf/CredstoreAdmin.ps1 -createstore -credstore /mnt/wfs/inventory/vipscredentials.xml
 chown www-data:www-data /mnt/wfs/inventory/vipscredentials.xml
+/usr/bin/pwsh -f /opt/sexigraf/CredstoreAdmin.ps1 -createstore -credstore /mnt/wfs/inventory/vbrpscredentials.xml
+chown www-data:www-data /mnt/wfs/inventory/vbrpscredentials.xml
 
 mkdir -p /var/log/sexigraf
 mkdir -p /var/log/apache2/graphite
