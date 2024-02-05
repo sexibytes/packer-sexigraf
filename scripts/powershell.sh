@@ -1,5 +1,5 @@
 # https://docs.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.2
-wget https://github.com/PowerShell/PowerShell/releases/download/v7.2.16/powershell-lts_7.2.16-1.deb_amd64.deb -O /tmp/powershell.deb
+wget https://github.com/PowerShell/PowerShell/releases/download/v7.2.17/powershell-lts_7.2.17-1.deb_amd64.deb -O /tmp/powershell.deb
 DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/powershell.deb
 
 # Install PowerCLI
@@ -13,3 +13,6 @@ git clone https://github.com/sexibytes/Graphite-PowerShell-Functions.git /usr/lo
 # Install VMware.Hv.Helper
 mkdir -p /usr/local/share/powershell/Modules/VMware.HV.Helper
 wget https://raw.githubusercontent.com/vmware/PowerCLI-Example-Scripts/master/Modules/VMware.Hv.Helper/VMware.HV.Helper.psm1 -O /usr/local/share/powershell/Modules/VMware.HV.Helper/VMware.HV.Helper.psm1
+
+# Install PureStoragePowerShellSDK
+/usr/bin/pwsh -Command 'Install-Module -Name PureStoragePowerShellSDK2 -Scope AllUsers -Force -Confirm:$false'
