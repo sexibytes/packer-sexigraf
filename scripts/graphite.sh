@@ -20,8 +20,8 @@ git clone https://github.com/graphite-project/whisper.git -b 1.1.x
 # 
 echo "install graphite & co"
 # pip3 install -Iv pip==20.3.4 --upgrade
-pip3 install -v pyparsing==2.4.7 --force-reinstall # https://github.com/graphite-project/graphite-web/issues/2726
-pip3 install setuptools # --upgrade
+# pip3 install -v pyparsing==2.4.7 --force-reinstall # https://github.com/graphite-project/graphite-web/issues/2726
+pip3 install pyparsing setuptools # --upgrade
 cd whisper; python3 setup.py install
 # 
 cd ../carbon; pip3 install -r requirements.txt; python3 setup.py install
@@ -44,9 +44,11 @@ a2dissite 000-default
 a2ensite graphite
 a2enmod headers
 service apache2 restart
+#
+sleep 10s
 # 
-PYTHONPATH=/opt/graphite/webapp django-admin.py migrate --settings=graphite.settings # --run-syncdb
-PYTHONPATH=/opt/graphite/webapp django-admin.py collectstatic --noinput --settings=graphite.settings
+PYTHONPATH=/opt/graphite/webapp django-admin migrate --settings=graphite.settings # --run-syncdb
+PYTHONPATH=/opt/graphite/webapp django-admin collectstatic --noinput --settings=graphite.settings
 # 
 groupadd -g 998 carbon
 useradd -c "carbon user" -g 998 -u 998 -s /bin/false carbon
