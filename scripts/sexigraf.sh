@@ -99,7 +99,6 @@ a2enmod ssl
 a2enmod socache_shmcb
 a2enmod rewrite
 
-chmod a+x /opt/sexigraf/PullGuestInfo.sh
 chmod a+x /opt/sexigraf/*.ps1
 
 echo "Intialise empty PS credentials stores"
