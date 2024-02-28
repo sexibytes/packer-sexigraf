@@ -16,10 +16,10 @@ apt-get update -y
 # DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumber-bytes-human-perl xml-twig-tools libsnmp30 cpanminus genisoimage collectd lib32z1 lib32ncurses5 build-essential uuid uuid-dev libssl-dev perl-doc libxml-libxml-perl libcrypt-ssleay-perl libsoap-lite-perl libmodule-build-perl libxml2 cpanminus sysstat snmp memcached net-tools
 DEBIAN_FRONTEND=noninteractive apt-get -y install xml-twig-tools genisoimage collectd-core lib32z1 build-essential uuid uuid-dev libssl-dev libxml2 sysstat snmp memcached net-tools snmp-mibs-downloader
 
-/bin/cp -rf /tmp/sexigraf-develop/etc/* /etc/
-/bin/cp -rf /tmp/sexigraf-develop/usr/* /usr/
-/bin/cp -rf /tmp/sexigraf-develop/var/* /var/
-/bin/cp -rf /tmp/sexigraf-develop/opt/* /opt/
+/bin/cp -rf /tmp/sexigraf-devel/etc/* /etc/
+/bin/cp -rf /tmp/sexigraf-devel/usr/* /usr/
+/bin/cp -rf /tmp/sexigraf-devel/var/* /var/
+/bin/cp -rf /tmp/sexigraf-devel/opt/* /opt/
 
 /bin/mv /opt/sexigraf/powershell.config.json /opt/microsoft/powershell/7-lts/
 
@@ -82,6 +82,9 @@ curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name"
 sleep 1s
 #
 curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViVbrCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/VbrVmInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
+sleep 1s
+#
+curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViSnapCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/ViSnapInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
 sleep 1s
 #
 echo "Grafana default configuration completed, switching default password"
