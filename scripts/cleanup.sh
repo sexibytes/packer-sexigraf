@@ -68,6 +68,10 @@ iface eth0 inet dhcp
 pre-up sleep 2
 EOL
 
+# https://github.com/sexibytes/sexigraf/issues/397
+echo "#" >> /etc/dhcp/dhclient.conf
+echo "send dhcp-client-identifier = hardware;" >> /etc/dhcp/dhclient.conf
+
 echo "Purge possible proxy info"
 rm -rf /etc/apt/apt.conf
 
