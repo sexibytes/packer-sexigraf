@@ -1,5 +1,5 @@
 # https://docs.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.2
-wget https://github.com/PowerShell/PowerShell/releases/download/v7.2.17/powershell-lts_7.2.17-1.deb_amd64.deb -O /tmp/powershell.deb
+wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.2/powershell-lts_7.4.2-1.deb_amd64.deb -O /tmp/powershell.deb
 DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/powershell.deb
 
 # Install PowerCLI
