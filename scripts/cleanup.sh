@@ -36,7 +36,7 @@ rm -rf /usr/share/doc/*
 
 echo "Clean up log files"
 find /var/log -type f | while read f; do echo -ne '' > $f; done;
-find /opt/graphite/storage/log -type f | while read f; do echo -ne '' > $f; done;
+# find /opt/graphite/storage/log -type f | while read f; do echo -ne '' > $f; done;
 
 echo "Clean apt files"
 rm -rf /var/lib/apt/lists/*
