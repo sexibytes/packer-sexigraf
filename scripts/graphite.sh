@@ -21,13 +21,13 @@ git clone https://github.com/graphite-project/whisper.git -b 1.1.x
 echo "install graphite & co"
 # pip3 install -Iv pip==20.3.4 --upgrade
 # pip3 install -v pyparsing==2.4.7 --force-reinstall # https://github.com/graphite-project/graphite-web/issues/2726
-pip3 install pyparsing setuptools # --upgrade
+pip3 install pyparsing setuptools incremental==22.10.0 django==3.2.25 # --upgrade
 cd whisper; python3 setup.py install
 # 
 cd ../carbon; pip3 install -r requirements.txt; python3 setup.py install
 # https://github.com/obfuscurity/synthesize/blob/master/install
 # cd ../graphite-web; pip3 install django==2.2.9; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
-cd ../graphite-web; pip3 install django; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
+cd ../graphite-web; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
 # also install service_identity to remove TLS error
 pip3 install txamqp service_identity # --upgrade
 # 
