@@ -12,8 +12,8 @@ systemctl start grafana-server
 sleep 5s
 # 
 echo "Update grafana conf before updating password (easier curl calls)"
-curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"local","type":"graphite","url":"http://127.0.0.1:8080","access":"proxy","isDefault":true,"basicAuth":false}' http://admin:admin@localhost:3000/api/datasources
-sleep 1s
+# curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"local","type":"graphite","url":"http://127.0.0.1:8080","access":"proxy","isDefault":true,"basicAuth":false,"uid":"bc36594f-bcf4-47fc-913e-e418f0814ecd"}' http://admin:admin@localhost:3000/api/datasources
+# sleep 1s
 # 
 curl --noproxy localhost -H "Content-Type: application/json" -X PUT -d '{"theme": "light"}' http://admin:admin@localhost:3000/api/user/preferences
 sleep 1s
