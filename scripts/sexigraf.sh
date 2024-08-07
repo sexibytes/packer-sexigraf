@@ -67,7 +67,7 @@ sed -i 's/;max_annotations_to_keep =/max_annotations_to_keep = 9999/g' /etc/graf
 cat >>/etc/grafana/grafana.ini <<EOL
 # Enable screenshots in notifications
 [unified_alerting.screenshots]
-capture = true
+capture = false
 EOL
 
 # https://marcus.se.net/grafana-csv-datasource/
