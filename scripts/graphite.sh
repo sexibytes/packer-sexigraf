@@ -1,35 +1,17 @@
 # https://graphite.readthedocs.io/en/latest/install-source.html
 # https://github.com/graphite-project/graphite-web/issues/2351#issuecomment-420013046
 # https://github.com/obfuscurity/synthesize
+# https://graphite.readthedocs.io/en/latest/install-pip.html
 # 
 DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config fontconfig apache2 libapache2-mod-wsgi-py3 git collectd-core gcc g++ make libtool automake python3-dev python3-pip apache2-bin apache2-data apache2-utils php-cli php-common php-json php-readline php-fpm libapache2-mod-php php-curl python3-cffi php-dom
 # 
-# apt install software-properties-common -y
-# add-apt-repository ppa:deadsnakes/ppa -y
-# apt-get update
-# apt install python3.9 python3-pip python3.9-dev -y
-# pip3 install pip --upgrade
-# update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
-# update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
-# 
-cd /usr/local/src
-echo "git clone graphite"
-git clone https://github.com/graphite-project/graphite-web.git -b 1.1.x
-git clone https://github.com/graphite-project/carbon.git -b 1.1.x
-git clone https://github.com/graphite-project/whisper.git -b 1.1.x
-# 
-echo "install graphite & co"
-# pip3 install -Iv pip==20.3.4 --upgrade
-# pip3 install -v pyparsing==2.4.7 --force-reinstall # https://github.com/graphite-project/graphite-web/issues/2726
-pip3 install pyparsing setuptools incremental==22.10.0 django==3.2.25 # --upgrade
-cd whisper; python3 setup.py install
-# 
-cd ../carbon; pip3 install -r requirements.txt; python3 setup.py install
-# https://github.com/obfuscurity/synthesize/blob/master/install
-# cd ../graphite-web; pip3 install django==2.2.9; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
-cd ../graphite-web; pip3 install -r requirements.txt; python3 check-dependencies.py; python3 setup.py install
-# also install service_identity to remove TLS error
-pip3 install txamqp service_identity # --upgrade
+export PYTHONPATH="/opt/graphite/lib/:/opt/graphite/webapp/"
+pip install --no-binary=:all: https://github.com/graphite-project/whisper/tarball/master
+
+pip3 install pyparsing setuptools==45.2.0 incremental==22.10.0 django==3.2.25 twisted==24.3.0 python-memcached
+
+pip install --no-binary=:all: https://github.com/graphite-project/carbon/tarball/master
+pip install --no-binary=:all: https://github.com/graphite-project/graphite-web/tarball/master
 # 
 cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
 sed -i -e "s/UNSAFE_DEFAULT/`date | md5sum | cut -d ' ' -f 1`/" /opt/graphite/webapp/graphite/local_settings.py
@@ -58,7 +40,7 @@ chown www-data:www-data /opt/graphite/storage/graphite.db
 chown -R carbon /opt/graphite/storage/whisper
 # mkdir /opt/graphite/storage/log/apache2
 chown -R www-data /opt/graphite/storage/log/webapp
-cp /usr/local/src/carbon/distro/debian/init.d/carbon-cache /etc/init.d/carbon-cache
+cp /opt/graphite/examples/init.d/carbon-cache /etc/init.d/carbon-cache
 chmod +x /etc/init.d/carbon-cache
 # 
 cp /opt/graphite/bin/build-index /etc/cron.hourly/graphite-build-index
@@ -84,6 +66,8 @@ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-sc
 # https://wiki.debian.org/LSBInitScripts
 sed -i '/^#!\/bin\/bash/a ### BEGIN INIT INFO\n# Provides:          carbon-cache\n# Required-Start:    $remote_fs $syslog\n# Required-Stop:     $remote_fs $syslog\n# Default-Start:     2 3 4 5\n# Default-Stop:      0 1 6\n# Short-Description: Start carbon-cache at boot time\n# Description:       Enable service provided by carbon-cache\n### END INIT INFO' /etc/init.d/carbon-cache
 # 
+sed -i '/^function die {/i echo_success() {\necho -n "OK"\nreturn 0\n}\n\necho_failure() {\necho -n "FAILED"\nreturn 1\n}\n' /etc/init.d/carbon-cache
+#
 sed -i '/Alias \/static\/ \/opt\/graphite\/static\//a\        <Directory \/opt\/graphite\/static\/>\n                Require all granted\n        <\/Directory>\n \n' /etc/apache2/sites-available/graphite.conf
 # 
 update-rc.d carbon-cache defaults
