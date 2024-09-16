@@ -14,7 +14,7 @@ mkdir -p /var/log/collectd
 apt-get update -y
 # DEBIAN_FRONTEND=noninteractive apt-get -y -t unstable --no-install-recommends install graphite-carbon graphite-web collectd
 # DEBIAN_FRONTEND=noninteractive apt-get -y install libhtml-template-perl libnumber-bytes-human-perl xml-twig-tools libsnmp30 cpanminus genisoimage collectd lib32z1 lib32ncurses5 build-essential uuid uuid-dev libssl-dev perl-doc libxml-libxml-perl libcrypt-ssleay-perl libsoap-lite-perl libmodule-build-perl libxml2 cpanminus sysstat snmp memcached net-tools
-DEBIAN_FRONTEND=noninteractive apt-get -y install xml-twig-tools genisoimage collectd-core lib32z1 build-essential uuid uuid-dev libssl-dev libxml2 sysstat snmp memcached net-tools snmp-mibs-downloader
+DEBIAN_FRONTEND=noninteractive apt-get -y install xml-twig-tools genisoimage collectd-core lib32z1 build-essential uuid uuid-dev libssl-dev libxml2 sysstat snmp memcached net-tools snmp-mibs-downloader shellinabox
 
 /bin/cp -rf /tmp/sexigraf-devel/etc/* /etc/
 /bin/cp -rf /tmp/sexigraf-devel/usr/* /usr/
@@ -123,4 +123,4 @@ mkdir -p /var/log/apache2/graphite
 # Configure crontab for vmtools infos
 echo "\n@reboot         root    /usr/bin/pwsh -NonInteractive -NoProfile -f /opt/sexigraf/PullGuestInfo.ps1 >/dev/null 2>&1" >> /etc/crontab
 #
-echo "SexiDone"
+sed -i 's/SHELLINABOX_ARGS=\"--no-beep\"/SHELLINABOX_ARGS=\"--no-beep --disable-ssl --localhost-only\"/g' /etc/default/shellinabox
