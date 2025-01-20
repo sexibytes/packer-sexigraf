@@ -7,8 +7,9 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install curl unzip resolvconf console-
 
 # Tweak sshd to prevent DNS resolution (speed up logins)
 # echo 'UseDNS no' >> /etc/ssh/sshd_config
-sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
+# sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+# sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
+echo "/etc/ssh/sshd_config.d/99-sexigraf.conf" > /etc/ssh/sshd_config.d/99-sexigraf.conf
 
 # https://communities.vmware.com/thread/514376
 # vmwgfx.enable_fbdev=1
