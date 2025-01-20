@@ -9,3 +9,4 @@ packerlog.txt
 *.ps1
 .DS_Store
 cpan_ver.txt
+ubuntu.auto.pkrvars.hcl
