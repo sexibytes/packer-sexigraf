@@ -65,11 +65,12 @@ sed -i 's/;max_annotations_to_keep =/max_annotations_to_keep = 9999/g' /etc/graf
 # sed -i 's/\[unified_alerting\]/[unified_alerting]\nenabled = false/g' /etc/grafana/grafana.ini
 # sed -i 's/\[alerting\]/[alerting]\nenabled = false/g' /etc/grafana/grafana.ini
 # enabling unified_alerting.screenshots capture
-cat >>/etc/grafana/grafana.ini <<EOL
-# Enable screenshots in notifications
-[unified_alerting.screenshots]
-capture = false
-EOL
+# https://github.com/grafana/grafana/issues/91624
+# cat >>/etc/grafana/grafana.ini <<EOL
+# # Enable screenshots in notifications
+# [unified_alerting.screenshots]
+# capture = false
+# EOL
 
 # https://marcus.se.net/grafana-csv-datasource/
 mkdir -p /mnt/wfs/inventory/
