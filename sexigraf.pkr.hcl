@@ -25,6 +25,7 @@ source "vsphere-iso" "sexigraf" {
   ssh_port               = 22
   ssh_timeout            = "20m"
   ssh_username           = "packer"
+  vm_disk_controller_type = ["pvscsi"]
   storage {
       disk_size             = 24576
       disk_thin_provisioned = true
@@ -44,12 +45,20 @@ source "vsphere-iso" "sexigraf" {
 build {
   sources = ["source.vsphere-iso.sexigraf"]
 
-#  provisioner "shell" {
-#    skip_clean = true
-#    execute_command = "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}"
-#    inline = [
-#      "rm -f /etc/sudoers.d/packer > /dev/null 2>&1",
-#      "userdel -rf packer > /dev/null 2>&1"
-#    ]
-#  }
+	provisioner "shell" {
+	  execute_command = "echo 'packer' | sudo -S sh '{{.Path}}'"
+	  scripts = [
+		"scripts/base.sh"
+	  ]
+	}
+
+	provisioner "shell" {
+	  skip_clean       = true
+	  execute_command  = "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}"
+
+	  inline = [
+		"rm -f /etc/sudoers.d/packer > /dev/null 2>&1",
+		"userdel -rf packer > /dev/null 2>&1"
+	  ]
+	}
 }
