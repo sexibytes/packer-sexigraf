@@ -51,7 +51,11 @@ fi
 
 # disable netplan
 apt -y purge netplan.io
-systemctl disable systemd-resolved
+# systemctl disable systemd-resolved
+systemctl disable systemd-networkd.service
+rm -f /etc/cloud/cloud.cfg.d/*
+rm -f /etc/netplan/*
+
 cat >/etc/network/interfaces <<EOL
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
