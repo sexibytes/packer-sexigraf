@@ -1,5 +1,5 @@
 source "vsphere-iso" "sexigraf" {
-  http_bind_address = 0.0.0.0
+  http_ip              = "${var.http_bind_address}"
   CPUs                 = 4
   RAM                  = 16384
   boot_command         = ["<esc><esc><esc><esc>e<wait>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "linux /casper/vmlinuz --- autoinstall ds=\"nocloud-net;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/\"<enter><wait>", "initrd /casper/initrd<enter><wait>", "boot<enter>", "<enter><f10><wait>"]
@@ -8,7 +8,6 @@ source "vsphere-iso" "sexigraf" {
   host				         = "${var.vsphere_host}"
   convert_to_template  = false
   datastore            = "${var.vsphere_datastore}"
-  disk_controller_type = "${var.vm_disk_controller_type}"
   folder               = "${var.vsphere_folder}"
   guest_os_type        = "ubuntu64Guest"
   http_directory       = "./http"
@@ -20,13 +19,12 @@ source "vsphere-iso" "sexigraf" {
     network_card = "vmxnet3"
   }
   password               = "${var.vsphere_password}"
-  shutdown_command       = "sudo shutdown -P now"
   ssh_handshake_attempts = "100"
   ssh_password           = "packer"
   ssh_port               = 22
   ssh_timeout            = "20m"
   ssh_username           = "packer"
-  vm_disk_controller_type = ["pvscsi"]
+  disk_controller_type = ["pvscsi"]
   storage {
       disk_size             = 24576
       disk_thin_provisioned = true
@@ -49,7 +47,15 @@ build {
 	provisioner "shell" {
 	  execute_command = "echo 'packer' | sudo -S sh '{{.Path}}'"
 	  scripts = [
-		"scripts/base.sh"
+      "scripts/base.sh",
+      "scripts/graphite.sh",
+      "scripts/grafana.sh",
+      "scripts/telegraf.sh",
+      "scripts/powershell.sh",
+      "scripts/sexigraf.sh",
+      "scripts/netdata.sh",
+      "scripts/govc.sh",
+      "scripts/cleanup.sh"
 	  ]
 	}
 
