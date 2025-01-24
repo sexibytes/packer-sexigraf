@@ -12,8 +12,8 @@ source "vsphere-iso" "sexigraf" {
   guest_os_type        = "ubuntu64Guest"
   http_directory       = "./http"
   insecure_connection  = "true"
-  iso_checksum         = "sha256:8762f7e74e4d64d72fceb5f70682e6b069932deedb4949c6975d0f0fe0a91be3"
-  iso_urls             = ["https://old-releases.ubuntu.com/releases/24.04/ubuntu-24.04-live-server-amd64.iso"]
+  iso_checksum         = "sha256:84aeaf7823c8c61baa0ae862d0a06b03409394800000b3235854a6b38eb4856f"
+  iso_urls             = ["https://old-releases.ubuntu.com/releases/jammy/ubuntu-22.04-live-server-amd64.iso"]
   network_adapters {
     network      = "${var.vsphere_portgroup_name}"
     network_card = "vmxnet3"
@@ -22,7 +22,7 @@ source "vsphere-iso" "sexigraf" {
   ssh_handshake_attempts = "100"
   ssh_password           = "packer"
   ssh_port               = 22
-  ssh_timeout            = "20m"
+  ssh_timeout            = "99m"
   ssh_username           = "packer"
   disk_controller_type = ["pvscsi"]
   storage {
