@@ -5,6 +5,8 @@
 # 
 DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config fontconfig apache2 libapache2-mod-wsgi-py3 git collectd-core gcc g++ make libtool automake python3-dev python3-pip apache2-bin apache2-data apache2-utils php-cli php-common php-json php-readline php-fpm libapache2-mod-php php-curl python3-cffi php-dom
 # 
+# rm /usr/lib/python3.*/EXTERNALLY-MANAGED
+#
 export PYTHONPATH="/opt/graphite/lib/:/opt/graphite/webapp/"
 pip install --no-binary=:all: https://github.com/graphite-project/whisper/tarball/master
 
