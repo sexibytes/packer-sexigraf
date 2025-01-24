@@ -1,6 +1,9 @@
 #cloud-config
 autoinstall:
   version: 1
+  early-commands:
+      # Stop ssh for packer
+      - sudo systemctl stop ssh
   apt:
     fallback: offline-install
     geoip: true
@@ -10,44 +13,47 @@ autoinstall:
       uri: http://gb.archive.ubuntu.com/ubuntu
     - arches: [default]
       uri: http://ports.ubuntu.com/ubuntu-ports
+  packages:
+      - apt-transport-https
+      - ca-certificates
   users:
   - default
   - name: packer
     lock_passwd: false
     passwd: "$6$OjeKf1ffUmd6uSZX$BsT9R0ZerAx5rCvipvm1ezG8WZ1jzkacjNtffuQkJl64P4.gRqj1jza27us36Wn3rUPm5Dk.qwcQ7SLMIpTo91"
-  write_files:
-  - path: /etc/ssh/sshd_config
-    content: |
-         Port 22
-         Protocol 2
-         HostKey /etc/ssh/ssh_host_rsa_key
-         HostKey /etc/ssh/ssh_host_dsa_key
-         HostKey /etc/ssh/ssh_host_ecdsa_key
-         HostKey /etc/ssh/ssh_host_ed25519_key
-         UsePrivilegeSeparation yes
-         KeyRegenerationInterval 3600
-         ServerKeyBits 1024
-         SyslogFacility AUTH
-         LogLevel INFO
-         LoginGraceTime 120
-         PermitRootLogin yes
-         StrictModes no
-         RSAAuthentication yes
-         PubkeyAuthentication no
-         IgnoreRhosts yes
-         RhostsRSAAuthentication no
-         HostbasedAuthentication no
-         PermitEmptyPasswords no
-         ChallengeResponseAuthentication no
-         X11Forwarding yes
-         X11DisplayOffset 10
-         PrintMotd no
-         PrintLastLog yes
-         TCPKeepAlive yes
-         AcceptEnv LANG LC_*
-         Subsystem sftp /usr/lib/openssh/sftp-server
-         UsePAM yes
-         AllowUsers packer
+  # write_files:
+  # - path: /etc/ssh/sshd_config
+  #   content: |
+  #        Port 22
+  #        Protocol 2
+  #        HostKey /etc/ssh/ssh_host_rsa_key
+  #        HostKey /etc/ssh/ssh_host_dsa_key
+  #        HostKey /etc/ssh/ssh_host_ecdsa_key
+  #        HostKey /etc/ssh/ssh_host_ed25519_key
+  #        UsePrivilegeSeparation yes
+  #        KeyRegenerationInterval 3600
+  #        ServerKeyBits 1024
+  #        SyslogFacility AUTH
+  #        LogLevel INFO
+  #        LoginGraceTime 120
+  #        PermitRootLogin yes
+  #        StrictModes no
+  #        RSAAuthentication yes
+  #        PubkeyAuthentication no
+  #        IgnoreRhosts yes
+  #        RhostsRSAAuthentication no
+  #        HostbasedAuthentication no
+  #        PermitEmptyPasswords no
+  #        ChallengeResponseAuthentication no
+  #        X11Forwarding yes
+  #        X11DisplayOffset 10
+  #        PrintMotd no
+  #        PrintLastLog yes
+  #        TCPKeepAlive yes
+  #        AcceptEnv LANG LC_*
+  #        Subsystem sftp /usr/lib/openssh/sftp-server
+  #        UsePAM yes
+  #        AllowUsers packer
   identity:
     hostname: sexigraf
     username: packer
@@ -62,6 +68,7 @@ autoinstall:
       list:
         - root:$6$NgmiRytDcQe9c.u4$LMCVSEwiINRhS3qp3PADP2lOcuNiKaXIZ7R1h9pq4gLrTwf231tsxGtHdooncKTvx.JGUNswdy7Goy.l1qA7C0
   locale: en_US
+  updates: security
   storage:
     layout:
       name: direct
@@ -80,6 +87,9 @@ autoinstall:
         size: -1
   late-commands:
     - echo 'packer ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/packer
+    - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config
+    - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /target/etc/ssh/sshd_config
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/packer
 #   shutdown: reboot
 # runcmd:
 #   - |
