@@ -10,7 +10,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config fontconfig apache2 
 export PYTHONPATH="/opt/graphite/lib/:/opt/graphite/webapp/"
 pip install --no-binary=:all: https://github.com/graphite-project/whisper/tarball/master
 
-pip3 install pyparsing setuptools==45.2.0 incremental==22.10.0 django==3.2.25 twisted==24.3.0 python-memcached
+pip3 install pyparsing setuptools==45.2.0 incremental==22.10.0 django==3.2.25 twisted==24.3.0 python-memcached pymemcache
 
 pip install --no-binary=:all: https://github.com/graphite-project/carbon/tarball/master
 pip install --no-binary=:all: https://github.com/graphite-project/graphite-web/tarball/master
@@ -19,6 +19,9 @@ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/
 sed -i -e "s/UNSAFE_DEFAULT/`date | md5sum | cut -d ' ' -f 1`/" /opt/graphite/webapp/graphite/local_settings.py
 sed -i -e "s/#SECRET_KEY/SECRET_KEY/g" /opt/graphite/webapp/graphite/local_settings.py
 # 
+# https://carminebufano.com/index.php/2024/11/02/how-to-fix-openstack-horizon-dashboard-on-centos-stream-9-error-invalidcachebackenderror/
+sed -i -e "s/django\.core\.cache\.backends\.memcached\.MemcachedCache/django\.core\.cache\.backend\s.memcached\.PyMemcacheCache/g" /opt/graphite/webapp/graphite/settings.py
+#
 cp /opt/graphite/examples/example-graphite-vhost.conf /etc/apache2/sites-available/graphite.conf
 cp /opt/graphite/conf/graphite.wsgi.example /opt/graphite/conf/graphite.wsgi
 # 
