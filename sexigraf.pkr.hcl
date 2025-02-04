@@ -36,6 +36,7 @@ source "vsphere-iso" "sexigraf" {
   username       = "${var.vsphere_user}"
   vcenter_server = "${var.vsphere_server}"
   vm_name        = "${var.vsphere_vm_name}"
+  create_snapshot = true
 }
 
 # a build block invokes sources and runs provisioning steps on them. The
