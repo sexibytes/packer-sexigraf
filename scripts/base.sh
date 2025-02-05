@@ -5,6 +5,9 @@ DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
 # apt-get -y install zlib1g-dev libssl-dev libreadline-gplv2-dev
 DEBIAN_FRONTEND=noninteractive apt-get -y install curl unzip resolvconf console-setup apt-transport-https vim wget htop parted traceroute ifupdown
 
+# https://github.com/sexibytes/sexigraf/issues/412
+add-apt-repository ppa:ondrej/apache2 --yes
+
 # Tweak sshd to prevent DNS resolution (speed up logins)
 # echo 'UseDNS no' >> /etc/ssh/sshd_config
 # sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
