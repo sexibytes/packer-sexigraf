@@ -24,6 +24,10 @@
 # echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
 # echo "pre-up sleep 2" >> /etc/network/interfaces
 
+# remove updates notifications
+apt remove update-notifier update-notifier-common
+systemctl disable --now unattended-upgrades
+
 echo "purge locale"
 find /usr/share/locale/* -maxdepth 0 -name 'en_US' -prune -o -exec rm -rf '{}' ';'
 
