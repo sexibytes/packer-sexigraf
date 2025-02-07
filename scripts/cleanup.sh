@@ -79,6 +79,8 @@ EOL
 # https://github.com/sexibytes/sexigraf/issues/397
 echo "#" >> /etc/dhcp/dhclient.conf
 echo "send dhcp-client-identifier = hardware;" >> /etc/dhcp/dhclient.conf
+# https://github.com/sexibytes/sexigraf/issues/409
+sed -i 's/timeout 300;/timeout 15;/g' /etc/dhcp/dhclient.conf
 
 echo "Purge possible proxy info"
 rm -rf /etc/apt/apt.conf
