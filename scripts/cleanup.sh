@@ -85,6 +85,9 @@ sed -i 's/timeout 300;/timeout 15;/g' /etc/dhcp/dhclient.conf
 echo "Purge possible proxy info"
 rm -rf /etc/apt/apt.conf
 
+# disable ssh motd bullshit
+touch ~/.hushlogin
+
 # echo "remove popularity-contest"
 rm -f /etc/cron.d/popularity-contest
 
