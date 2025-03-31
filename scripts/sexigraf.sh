@@ -72,15 +72,15 @@ sed -i 's/;max_annotations_to_keep =/max_annotations_to_keep = 9999/g' /etc/graf
 # capture = false
 # EOL
 
-# https://docs.checkmk.com/latest/en/grafana.html
-sed -i 's/;allow_loading_unsigned_plugins =/allow_loading_unsigned_plugins = tribe-29-checkmk-datasource/g' /etc/grafana/grafana.ini
-#
-wget https://github.com/Checkmk/grafana-checkmk-datasource/releases/download/v3.4.1/tribe-29-checkmk-datasource-3.4.1.zip -O /tmp/tribe-29-checkmk-datasource.zip
-unzip /tmp/tribe-29-checkmk-datasource.zip -d /tmp
-mkdir -p /var/lib/grafana/plugins
-chown grafana:grafana /var/lib/grafana/plugins
-mv -v /tmp/tribe-29-checkmk-datasource /var/lib/grafana/plugins/tribe-29-checkmk-datasource
-chown -R grafana:grafana /var/lib/grafana/plugins/tribe-29-checkmk-datasource
+# # https://docs.checkmk.com/latest/en/grafana.html
+# sed -i 's/;allow_loading_unsigned_plugins =/allow_loading_unsigned_plugins = tribe-29-checkmk-datasource/g' /etc/grafana/grafana.ini
+# #
+# wget https://github.com/Checkmk/grafana-checkmk-datasource/releases/download/v3.4.1/tribe-29-checkmk-datasource-3.4.1.zip -O /tmp/tribe-29-checkmk-datasource.zip
+# unzip /tmp/tribe-29-checkmk-datasource.zip -d /tmp
+# mkdir -p /var/lib/grafana/plugins
+# chown grafana:grafana /var/lib/grafana/plugins
+# mv -v /tmp/tribe-29-checkmk-datasource /var/lib/grafana/plugins/tribe-29-checkmk-datasource
+# chown -R grafana:grafana /var/lib/grafana/plugins/tribe-29-checkmk-datasource
 
 # https://marcus.se.net/grafana-csv-datasource/
 mkdir -p /mnt/wfs/inventory/
