@@ -105,6 +105,9 @@ sleep 1s
 curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"ViSnapCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/ViSnapInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
 sleep 1s
 #
+curl --noproxy localhost -H "Content-Type: application/json" -X POST -d '{"name":"VsanObjCsv","type":"marcusolsson-csv-datasource","isDefault":false,"access":"proxy","url":"/mnt/wfs/inventory/VsanObjInventory.csv","password":"","user":"","database":"","basicAuth":false,"isDefault":false,"jsonData":{"storage":"local"}}' http://admin:admin@localhost:3000/api/datasources
+sleep 1s
+#
 echo "Grafana default configuration completed, switching default password"
 curl --noproxy localhost -H "Content-Type: application/json" -X PUT -d '{"oldPassword":"admin","newPassword":"Sex!Gr@f","confirmNew":"Sex!Gr@f"}' http://admin:admin@localhost:3000/api/user/password
 sleep 1s
