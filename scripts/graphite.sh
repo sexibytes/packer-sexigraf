@@ -74,7 +74,7 @@ sed -i '/^#!\/bin\/bash/a ### BEGIN INIT INFO\n# Provides:          carbon-cache
 sed -i '/^function die {/i echo_success() {\necho -n "OK"\nreturn 0\n}\n\necho_failure() {\necho -n "FAILED"\nreturn 1\n}\n' /etc/init.d/carbon-cache
 #
 sed -i '/Alias \/static\/ \/opt\/graphite\/static\//a\        <Directory \/opt\/graphite\/static\/>\n                Require all granted\n        <\/Directory>\n \n' /etc/apache2/sites-available/graphite.conf
-# 
+#
 update-rc.d carbon-cache defaults
 service carbon-cache start
 systemctl restart apache2
