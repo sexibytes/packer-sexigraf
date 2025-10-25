@@ -138,3 +138,8 @@ mkdir -p /var/log/apache2/graphite
 echo "\n@reboot         root    /usr/bin/pwsh -NonInteractive -NoProfile -f /opt/sexigraf/PullGuestInfo.ps1 >/dev/null 2>&1" >> /etc/crontab
 #
 sed -i 's/SHELLINABOX_ARGS=\"--no-beep\"/SHELLINABOX_ARGS=\"--no-beep --disable-ssl --localhost-only\"/g' /etc/default/shellinabox
+
+# https://github.com/sexibytes/sexigraf/issues/424
+echo " " >> /etc/memcached.conf
+echo "# object_size_limit increase from the 1mb default" >> /etc/memcached.conf
+echo "-I 10m" >> /etc/memcached.conf
