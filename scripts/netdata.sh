@@ -8,10 +8,14 @@ sh /root/kickstart.sh --non-interactive --no-updates --stable-channel --disable-
 # sed -i -e "s/# x-frame-options response header =/x-frame-options response header = sameorigin/g" /etc/netdata/netdata.conf
 # sed -i -e "s/# hostname = sexigraf/# hostname = sexigraf\n          bind socket to IP = 127.0.0.1/g" /etc/netdata/netdata.conf
 echo "    bind socket to IP = 127.0.0.1" >> /etc/netdata/netdata.conf
-
 # 
 # You can opt out from anonymous statistics via the --disable-telemetry option, or by creating an empty file /etc/netdata/.opt-out-from-anonymous-statistics
 touch /etc/netdata/.opt-out-from-anonymous-statistics
 #
+# new disable-cloud
+cat >/var/lib/netdata/cloud.d/cloud.conf <<EOL
+[global]
+enabled = no
+EOL
 # systemctl restart netdata
 rm -f /root/kickstart.sh
